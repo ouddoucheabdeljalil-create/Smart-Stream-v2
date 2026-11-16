@@ -15,24 +15,30 @@ let data = getDataLocaleSorage()
 function afficher(arry, parent) {
     parent.innerHTML = ''
     arry.forEach(element => {
-        
+
         const list = document.createElement('li')
         list.dataset.id = element.id
         list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
         list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><button class="btn-str"><img src="assest/star.svg" id="star-icon${element.id}"></button>`
         parent.appendChild(list)
         //  changeBgChannel()
+
     });
+    changeBgChannel()
+    
 }
 
 export function showChannels() {
-    afficher(data,channelsSpace)
+    afficher(data, channelsSpace)
+     changeStrIcon(data)
     search.addEventListener('input', () => {
         let x = search.value.toLowerCase()
         const filtered = data.filter(p => p.name.toLowerCase().includes(x) || p.channelNumber.toLowerCase().includes(x));
-        afficher(filtered,channelsSpace)
+        afficher(filtered, channelsSpace)
+         changeStrIcon(filtered)
+        // changeBgChannel()
     })
-    changeStrIcon()
+
 }
 export function showCategory() {
     data.forEach(e => {
@@ -77,13 +83,20 @@ export function filterByCategory() {
         console.log(e.target)
 
         if (e.target.id === 'tout') {
-            afficher(data,channelsSpace)
+            afficher(data, channelsSpace)
+             changeStrIcon(data)
         }
         else {
-            let channels = data.filter(e => e.category == id)
-            afficher(channels,channelsSpace)
-            changeBgChannel()
+            const channels = data.filter(e => e.category == id)
+            
+
+            afficher(channels, channelsSpace)
+           
+             changeStrIcon(channels)
+
+
         }
+         
     })
 }
 
@@ -149,30 +162,31 @@ export function showDetailsChannel() {
     })
 
 }
-function changeStrIcon(){
-    
-const btnStr = document.querySelectorAll('.btn-str')
+function changeStrIcon(datas) {
 
-btnStr.forEach(element => {
-element.addEventListener('click', (e) => {
-    data.forEach(p => {
-       const strIcon = document.getElementById(`star-icon${p.id}`)
-       if(e.target.className === 'btn-str' || e.target.id === strIcon.id){
-        
-       
-        if(strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg'){
-            console.log('rr')
-           strIcon.src= '/assest/star.svg'
-        }
-        else{
-             strIcon.src = '/assest/star-fill.svg'
-        console.log(strIcon.src)
-        }
-       }
+    const btnStr = document.querySelectorAll('.btn-str')
+
+    btnStr.forEach(element => {
+        element.addEventListener('click', (e) => {
+            datas.forEach(p => {
+                const strIcon = document.querySelector(`#star-icon${p.id}`)
+
+                if (e.target.id === strIcon.id) {
+
+
+                    if (strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg') {
+
+                        strIcon.src = '/assest/star.svg'
+                    }
+                    else {
+                        strIcon.src = '/assest/star-fill.svg'
+                        
+                    }
+                }
+            })
+
+        })
     })
-    
-})
-})
 
 }
 
@@ -182,7 +196,7 @@ export function playStream() {
         let url = data.find(element => element.id === channelsClass.dataset.id)
 
 
-        
+
         if (Hls.isSupported()) {
             const hls = new Hls()
             hls.loadSource(url.streamUrl)
