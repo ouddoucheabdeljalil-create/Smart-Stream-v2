@@ -27,11 +27,11 @@ export async function ajouteToMockupApi(){
     const channels = await response.json();
 
     for (const channel of channels){
+
         await fetch(`${API_URL}/${channel.id}`,{
             method : "PUT",
             headers : {"Content-Type" : "application/json"},
             body : JSON.stringify({ isFavorite: false , isBlacklisted: false}),
-        
         });
        
     }
