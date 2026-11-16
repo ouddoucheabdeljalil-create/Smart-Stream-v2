@@ -8,49 +8,35 @@ const search = document.querySelector('#search-search')
 // const showPlace = document.getElementById('show-place')
 const detailsPlace = document.getElementById('detais-space')
 const header = document.querySelector('header')
+const video = document.getElementById('videoPlayer')
+
 let data = getDataLocaleSorage()
 
-export function showChannels() {
-
-
-
-
-    data.forEach(element => {
+function afficher(arry, parent) {
+    parent.innerHTML = ''
+    arry.forEach(element => {
+        
         const list = document.createElement('li')
-        list.setAttribute('id', `list${element.id}`)
-        list.dataset.id= element.id
-        list.className = `list flex flex-row justify-between px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-
-        list.innerHTML = `<span>${element.channelNumber}</span><span>${element.name}</span>`
-        channelsSpace.appendChild(list)
-
+        list.dataset.id = element.id
+        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><button class="btn-str"><img src="assest/star.svg" id="star-icon${element.id}"></button>`
+        parent.appendChild(list)
+        //  changeBgChannel()
     });
+}
+
+export function showChannels() {
+    afficher(data,channelsSpace)
     search.addEventListener('input', () => {
-        channelsSpace.innerHTML = ''
         let x = search.value.toLowerCase()
-
-
         const filtered = data.filter(p => p.name.toLowerCase().includes(x) || p.channelNumber.toLowerCase().includes(x));
-
-        console.log(filtered)
-        filtered.forEach(element => {
-            const list = document.createElement('li')
-            list.dataset.id= element.id
-            list.className = `list flex flex-row justify-between px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-
-            list.innerHTML = `<span>${element.channelNumber}</span><span>${element.name}</span>`
-            channelsSpace.appendChild(list)
-
-        });
-
+        afficher(filtered,channelsSpace)
     })
+    changeStrIcon()
 }
 export function showCategory() {
     data.forEach(e => {
-
         const list = document.querySelector(`#${e.category}`)
-
-
         if (!list) {
             const list = document.createElement('li')
             list.setAttribute('id', `${e.category}`)
@@ -80,6 +66,7 @@ export function removeHidden() {
     })
 
 }
+
 export function filterByCategory() {
     spaceCategory.addEventListener('click', (e) => {
 
@@ -90,57 +77,33 @@ export function filterByCategory() {
         console.log(e.target)
 
         if (e.target.id === 'tout') {
-            channelsSpace.innerHTML = ''
-            data.forEach(element => {
-                
-                const list = document.createElement('li')
-                list.dataset.id= element.id
-                list.className = `list flex flex-row justify-between px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-                list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span>`
-                channelsSpace.appendChild(list)
-                //  changeBgChannel()
-            });
+            afficher(data,channelsSpace)
         }
         else {
             let channels = data.filter(e => e.category == id)
-
-            
-            channelsSpace.innerHTML = ''
-            channels.forEach(element => {
-                const list = document.createElement('li')
-                list.dataset.id= element.id
-                list.className = `list flex flex-row justify-between px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-                list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span>`
-                channelsSpace.appendChild(list)
-                changeBgChannel()
-            });
-
+            afficher(channels,channelsSpace)
+            changeBgChannel()
         }
-
     })
 }
 
 export function AddloadingSpin() {
     const spin = document.getElementById('spin')
     spin.classList.add('loader')
+    video.classList.add('hidden')
+
 }
 export function loadingSearch() {
     const loadingSearch = document.getElementById('loading-search')
     loadingSearch.classList.add('loader1')
-    // spaceCategory.innerHTML = ''
-    // channelsSpace.innerHTML = ''
     localStorage.clear()
 
 }
 export function changeBgChannel() {
     const channels = document.querySelectorAll('.list')
-    // bg.addEventListener('click' , (e) => {
-    //     console.log(e.target)
-    // })
-
     channels.forEach(channel => {
         channel.addEventListener('click', (e) => {
-           
+
             channels.forEach(chann => {
                 chann.classList.remove('bg-red-600')
             })
@@ -149,12 +112,12 @@ export function changeBgChannel() {
     })
 }
 
-export function showDetailsChannel(){
-    
-    channelsSpace.addEventListener('click' , (e) =>{
+export function showDetailsChannel() {
+
+    channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')
         data.forEach(element => {
-            if(element.id === channelsClass.dataset.id){
+            if (element.id === channelsClass.dataset.id) {
                 detailsPlace.innerHTML = ` <div class="flex items-center justify-center rounded-2xl">
                 <img src="${element.logo}" alt="" class="w-40  h-40 rounded-2xl max-sm:w-20 max-sm:h-20">
             </div>
@@ -186,18 +149,44 @@ export function showDetailsChannel(){
     })
 
 }
-export function playStream(){
-    const video = document.getElementById('videoPlayer')
-    channelsSpace.addEventListener('click' , (e) =>{
-    let channelsClass = e.target.closest('.list')
-    let url = data.find(element => element.id === channelsClass.dataset.id)
+function changeStrIcon(){
     
+const btnStr = document.querySelectorAll('.btn-str')
 
-    console.log(url)
-    if(Hls.isSupported()){
-        const hls = new Hls()
-        hls.loadSource(url.streamUrl)
-        hls.attachMedia(video)
-    }
+btnStr.forEach(element => {
+element.addEventListener('click', (e) => {
+    data.forEach(p => {
+       const strIcon = document.getElementById(`star-icon${p.id}`)
+       if(e.target.className === 'btn-str' || e.target.id === strIcon.id){
+        
+       
+        if(strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg'){
+            console.log('rr')
+           strIcon.src= '/assest/star.svg'
+        }
+        else{
+             strIcon.src = '/assest/star-fill.svg'
+        console.log(strIcon.src)
+        }
+       }
+    })
+    
 })
+})
+
+}
+
+export function playStream() {
+    channelsSpace.addEventListener('click', (e) => {
+        let channelsClass = e.target.closest('.list')
+        let url = data.find(element => element.id === channelsClass.dataset.id)
+
+
+        
+        if (Hls.isSupported()) {
+            const hls = new Hls()
+            hls.loadSource(url.streamUrl)
+            hls.attachMedia(video)
+        }
+    })
 }
