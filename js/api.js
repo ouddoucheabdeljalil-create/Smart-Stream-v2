@@ -21,3 +21,19 @@ export async function fetchData(){
    
     
 }
+export async function ajouteToMockupApi(){
+    const API_URL = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels'
+    const response =await fetch(API_URL);
+    const channels = await response.json();
+
+    for (const channel of channels){
+        await fetch(`${API_URL}/${channel.id}`,{
+            method : "PUT",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify({ isFavorite: false , isBlacklisted: false}),
+        
+        });
+       
+    }
+   
+}

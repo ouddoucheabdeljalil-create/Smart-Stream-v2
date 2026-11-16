@@ -1,4 +1,4 @@
-import { fetchData } from "./api.js";
+import { fetchData ,ajouteToMockupApi} from "./api.js";
 import { showChannels , removeHidden, showCategory , filterByCategory ,changeBgChannel, showDetailsChannel,playStream} from "./ui.js";
 
 fetchData()
@@ -10,3 +10,4 @@ removeHidden()
 
 showDetailsChannel()
 playStream()
+ajouteToMockupApi()
