@@ -38,7 +38,7 @@ export async function ajouteToMockupApi() {
     }
 
 }
-export async function checkTrueFalse(path , sitiation) {
+export async function checkTrueFalse(path, sitiation) {
     // const response = await fetch(API_URL);
     // const channels = await response.json();
 
@@ -49,28 +49,29 @@ export async function checkTrueFalse(path , sitiation) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(
             {
-            id: path.id,
-            channelNumber: path.channelNumber,
-            name: path.name,
-            category: path.category,
-            country: path.country,
-            countryCode: path.countryCode,
-            logo: path.logo,
-            previewImage: path.previewImage,
-            streamUrl: path.streamUrl,
-            isLive: path.isLive,
-            epg: {
-            currentProgram: path.epg.currentProgram,
-            startTime: path.epg.startTime,
-            endTime: path.epg.endTime,
-            progressPercentage: path.epg.progressPercentage
-        },
-            isFavorite: path.isFavorite,
-            isBlackliste: sitiation
-    }),
+                id: path.id,
+                channelNumber:path.channelNumber,
+                name: path.name,
+                category: path.category,
+                country: path.country,
+                countryCode: path.countryCode,
+                logo: path.logo,
+                previewImage: path.previewImage,
+                streamUrl: path.streamUrl,
+                isLive: path.isLive,
+                epg: {
+                    currentProgram: path.epg.currentProgram,
+                    startTime: path.epg.startTime,
+                    endTime: path.epg.endTime,
+                    progressPercentage: path.epg.progressPercentage
+                },
+                isFavorite: path.isFavorite,
+                isBlacklisted: sitiation,
+            },
+        ),
 
 
-    })
-
+      })
+   
 
 }
