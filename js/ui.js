@@ -1,4 +1,4 @@
-import { getDataLocaleSorage, setDataLocaleSorage, getBlacklistLocaleSorage, setBlacklistLocaleSorage } from "./storage.js";
+import { getDataLocaleSorage} from "./storage.js";
 import { checkTrueFalse } from "./api.js";
 
 const channelsSpace = document.getElementById('channel-space')
@@ -203,16 +203,22 @@ function filterBlackList(datas) {
     btnReport.forEach(element => {
         element.addEventListener('click', (e) => {
             const x = datas.find(p => e.currentTarget.dataset.id === p.id)
-            blackList.push(x)
-            // const y = datas.filter(pro => pro.id !== x.id)
-            const i = "isBlacklisted" ;
-            checkTrueFalse(x ,true)
-
-            // setDataLocaleSorage(y)
-            // afficher(y, channelsSpace)
-            console.log(getDataLocaleSorage())
-            // setBlacklistLocaleSorage(blackList)
-            // afficherBlacklist() 
+            
+            console.log(x)
+                checkTrueFalse(x )
+                console.log(getDataLocaleSorage())
+        //     const x = datas.find(p => e.currentTarget.dataset.id === p.id)
+        //     x.isBlacklisted = true
+        //     blackList.push(x)
+        //     const y = datas.filter(pro => pro.id !== x.id)
+        //     const i = "isBlacklisted" ;
+        
+        //     console.log(blackList)
+        //     setDataLocaleSorage(y)
+        //     // afficher(y, channelsSpace)
+        //     console.log(getDataLocaleSorage())
+        //     setBlacklistLocaleSorage(blackList)
+        //     // afficherBlacklist() 
             
         })
         
@@ -227,6 +233,7 @@ export function pannelDeBlacklist(){
 }
 export function afficherBlacklist(){
     popUpList.innerHTML=''
+    
    blackList.forEach(element => {
         const list = document.createElement('li')
         list.dataset.id = element.id
