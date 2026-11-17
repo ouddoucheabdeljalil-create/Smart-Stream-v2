@@ -1,4 +1,5 @@
 import { getDataLocaleSorage, setDataLocaleSorage, getBlacklistLocaleSorage, setBlacklistLocaleSorage } from "./storage.js";
+import { checkTrueFalse } from "./api.js";
 
 const channelsSpace = document.getElementById('channel-space')
 const spaceCategory = document.getElementById('space-catregory');
@@ -39,7 +40,8 @@ export function showChannels() {
 
     search.addEventListener('input', () => {
         let x = search.value.toLowerCase()
-        const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x) || p.channelNumber.toLowerCase().includes(x));
+        console.log(x)
+        const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x)  );
         afficher(filtered, channelsSpace)
         changeStrIcon(filtered)
         filterBlackList(filtered)
@@ -180,17 +182,12 @@ function changeStrIcon(datas) {
         element.addEventListener('click', (e) => {
             datas.forEach(p => {
                 const strIcon = document.querySelector(`#star-icon${p.id}`)
-
                 if (e.target.id === strIcon.id) {
-
-
                     if (strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg') {
-
                         strIcon.src = '/assest/star.svg'
                     }
                     else {
                         strIcon.src = '/assest/star-fill.svg'
-
                     }
                 }
             })
@@ -207,12 +204,15 @@ function filterBlackList(datas) {
         element.addEventListener('click', (e) => {
             const x = datas.find(p => e.currentTarget.dataset.id === p.id)
             blackList.push(x)
-            const y = datas.filter(pro => pro.id !== x.id)
-            setDataLocaleSorage(y)
-            afficher(y, channelsSpace)
-            console.log(blackList)
-            setBlacklistLocaleSorage(blackList)
-            afficherBlacklist() 
+            // const y = datas.filter(pro => pro.id !== x.id)
+            const i = "isBlacklisted" ;
+            checkTrueFalse(x ,true)
+
+            // setDataLocaleSorage(y)
+            // afficher(y, channelsSpace)
+            console.log(getDataLocaleSorage())
+            // setBlacklistLocaleSorage(blackList)
+            // afficherBlacklist() 
             
         })
         
