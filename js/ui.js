@@ -1,4 +1,4 @@
-import { getDataLocaleSorage, setDataLocaleSorage } from "./storage.js";
+import { getDataLocaleSorage, setDataLocaleSorage, getBlacklistLocaleSorage, setBlacklistLocaleSorage } from "./storage.js";
 
 const channelsSpace = document.getElementById('channel-space')
 const spaceCategory = document.getElementById('space-catregory');
@@ -9,7 +9,11 @@ const search = document.querySelector('#search-search')
 const detailsPlace = document.getElementById('detais-space')
 const header = document.querySelector('header')
 const video = document.getElementById('videoPlayer')
- const blackList = []
+const blacklistBtn = document.getElementById('blacklist-btn')
+const popUpList = document.getElementById('popUp-list')
+const popUp = document.getElementById('popUp')
+const space = document.getElementById('space')
+const blackList = [] || getBlacklistLocaleSorage() 
 const data = getDataLocaleSorage()
 
 function afficher(arry, parent) {
@@ -19,27 +23,27 @@ function afficher(arry, parent) {
         const list = document.createElement('li')
         list.dataset.id = element.id
         list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3"><button class="btn-str" data-id="${element.id}"><img src="assest/star.svg" id="star-icon${element.id}"></button><button class="btn-report" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-id="${element.id}"><img src="assest/star.svg" id="star-icon${element.id}"></button><button class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
         parent.appendChild(list)
         //  changeBgChannel()
 
     });
     changeBgChannel()
     filterBlackList(getDataLocaleSorage())
-    
+
 }
 
 export function showChannels() {
     afficher(data, channelsSpace)
-     changeStrIcon(data)
-     
+    changeStrIcon(data)
+
     search.addEventListener('input', () => {
         let x = search.value.toLowerCase()
         const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x) || p.channelNumber.toLowerCase().includes(x));
         afficher(filtered, channelsSpace)
-         changeStrIcon(filtered)
-         filterBlackList(filtered)
-        
+        changeStrIcon(filtered)
+        filterBlackList(filtered)
+
     })
 
 }
@@ -82,27 +86,27 @@ export function filterByCategory() {
 
 
         let id = e.target.id
-       
+
 
         if (e.target.id === 'tout') {
             afficher(data, channelsSpace)
-             changeStrIcon(data)
-             filterBlackList(data)
-             
+            changeStrIcon(data)
+            filterBlackList(getDataLocaleSorage())
+
         }
         else {
             const channels = getDataLocaleSorage().filter(e => e.category == id)
-            
+
 
             afficher(channels, channelsSpace)
-           
-             changeStrIcon(channels)
-             filterBlackList(channels)
-             
+
+            changeStrIcon(channels)
+            filterBlackList(channels)
+
 
 
         }
-         
+
     })
 }
 
@@ -186,7 +190,7 @@ function changeStrIcon(datas) {
                     }
                     else {
                         strIcon.src = '/assest/star-fill.svg'
-                        
+
                     }
                 }
             })
@@ -195,20 +199,43 @@ function changeStrIcon(datas) {
     })
 
 }
-function filterBlackList(datas){
-    console.log("ppppp")
-   const btnReport =document.querySelectorAll('.btn-report')
+function filterBlackList(datas) {
+    
+    
+    const btnReport = document.querySelectorAll('.btn-report')
     btnReport.forEach(element => {
-        element.addEventListener('click', (e) =>{
-          const x=  datas.find(p => e.currentTarget.dataset.id === p.id)
-          blackList.push(x)
-          const y = datas.filter(pro => pro.id !== x.id) 
-          setDataLocaleSorage(y)
-          afficher(y,channelsSpace)
-          console.log(blackList)
+        element.addEventListener('click', (e) => {
+            const x = datas.find(p => e.currentTarget.dataset.id === p.id)
+            blackList.push(x)
+            const y = datas.filter(pro => pro.id !== x.id)
+            setDataLocaleSorage(y)
+            afficher(y, channelsSpace)
+            console.log(blackList)
+            setBlacklistLocaleSorage(blackList)
+            afficherBlacklist() 
+            
         })
+        
+    })
+   
+}
+export function pannelDeBlacklist(){
+      blacklistBtn.addEventListener('click' , (e) =>{
+        popUp.classList.toggle('hidden')
+        space.classList.toggle('hidden')
     })
 }
+export function afficherBlacklist(){
+    popUpList.innerHTML=''
+   blackList.forEach(element => {
+        const list = document.createElement('li')
+        list.dataset.id = element.id
+        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3">`
+        popUpList.appendChild(list)
+    })
+}
+// afficherBlacklist()
 export function playStream() {
     channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')
