@@ -226,7 +226,7 @@ export function pannelDeBlacklist(){
     })
 }
 export function afficherBlacklist(){
-    popUpList.innerHTML=''
+    popUpList.innerHTML= ''
    blackList.forEach(element => {
         const list = document.createElement('li')
         list.dataset.id = element.id
