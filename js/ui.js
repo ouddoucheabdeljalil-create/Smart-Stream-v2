@@ -1,5 +1,5 @@
 import { getDataLocaleSorage, setDataLocaleSorage } from "./storage.js";
-import { checkTrueFalse } from "./api.js";
+import { checkTrueFalse,checkFavorite } from "./api.js";
 
 const channelsSpace = document.getElementById('channel-space')
 const spaceCategory = document.getElementById('space-catregory');
@@ -21,34 +21,34 @@ function afficher(arry, parent) {
     parent.innerHTML = ''
     arry.forEach(element => {
         if (element.isBlackliste !== true) {
-        const list = document.createElement('li')
-        list.dataset.id = element.id
-        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-id="${element.id}"><img src="assest/star.svg" id="star-icon${element.id}"></button><button class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
-        parent.appendChild(list)
-        //  changeBgChannel()
+            const list = document.createElement('li')
+            list.dataset.id = element.id
+            list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-id="${element.id}"><img src="assest/star.svg" id="star-icon${element.id}"></button><button class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+            parent.appendChild(list)
+            //  changeBgChannel()
         }
     });
     changeBgChannel()
     filterBlackList(getDataLocaleSorage())
     // changeStrIcon(data)
-    
-    
+
+
 
 }
 
 export function showChannels() {
     afficher(data, channelsSpace)
-    changeStrIcon(data)
-
+    gereerFavorite(getDataLocaleSorage())
+    afficherBlacklist()
     search.addEventListener('input', () => {
         let x = search.value.toLowerCase()
         console.log(x)
         const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x));
         afficher(filtered, channelsSpace)
-        changeStrIcon(filtered)
+        gereerFavorite(filtered)
         filterBlackList(filtered)
-        
+
     })
 
 }
@@ -105,7 +105,7 @@ export function filterByCategory() {
 
             afficher(channels, channelsSpace)
 
-            changeStrIcon(channels)
+            gereerFavorite(channels)
             filterBlackList(channels)
 
 
@@ -177,29 +177,33 @@ export function showDetailsChannel() {
     })
 
 }
-function changeStrIcon(datas) {
+// function changeStrIcon(datas) {
 
-    const btnStr = document.querySelectorAll('.btn-str')
+//     const btnStr = document.querySelectorAll('.btn-str')
 
-    btnStr.forEach(element => {
-        element.addEventListener('click', (e) => {
-            datas.forEach(p => {
-                const strIcon = document.querySelector(`#star-icon${p.id}`)
-                console.log(strIcon.id)
-                if (e.target.id === strIcon.id) {
-                    if (strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg') {
-                        strIcon.src = '/assest/star.svg'
-                    }
-                    else {
-                        strIcon.src = '/assest/star-fill.svg'
-                    }
-                }
-            })
+//     btnStr.forEach(element => {
 
-        })
-    })
+//         element.addEventListener('click', (e) => {
 
-}
+//             datas.forEach(p => {
+
+//                 const strIcon = document.getElementById(`star-icon${p.id}`)
+//                 // console.log(strIcon)
+//                 console.log(e.target.id)
+//                 if (e.target.id === `star-icon${p.id}`) {
+//                     if (strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg') {
+//                         strIcon.src = '/assest/star.svg'
+//                     }
+//                     else {
+//                         strIcon.src = '/assest/star-fill.svg'
+//                     }
+//                 }
+//             })
+
+//         })
+//     })
+
+// }
 function filterBlackList(datas) {
 
 
@@ -211,15 +215,16 @@ function filterBlackList(datas) {
 
             checkTrueFalse(x, x.isBlackliste)
             const affi = getDataLocaleSorage().filter(e => e.isBlackliste !== true)
-            setDataLocaleSorage(affi)
+
             afficher(affi, channelsSpace)
-            
+            setDataLocaleSorage(affi)
 
-            location.reload();
-           
-            afficherBlacklist()
+
+            // location.reload();
+
+
         })
-
+        afficherBlacklist()
     })
 
 }
@@ -227,8 +232,9 @@ export function pannelDeBlacklist() {
     blacklistBtn.addEventListener('click', (e) => {
         popUp.classList.toggle('hidden')
         space.classList.toggle('hidden')
+        returnChannelFromBlacklist()
     })
-    space.addEventListener('click' , ()=>{
+    space.addEventListener('click', () => {
         popUp.classList.add('hidden')
         space.classList.add('hidden')
     })
@@ -240,16 +246,70 @@ export function afficherBlacklist() {
 
 
         if (element.isBlackliste === true) {
-            console.log('eeee')
+            // console.log('eeee')
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3">`
+            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span> <button title="ajouter aux favoris" class="btn-return" data-id="${element.id}"><img src="assest/return.svg" classs="h-30" id="return-icon${element.id}"></button>`
             popUpList.appendChild(list)
         }
     })
 }
-// afficherBlacklist()
+export function returnChannelFromBlacklist() {
+    popUpList.addEventListener('click', (e) => {
+        getDataLocaleSorage().forEach(element => {
+            if (e.target.id === `return-icon${element.id}`) {
+                checkTrueFalse(element, false)
+
+            }
+        })
+    })
+}
+
+export function gereerFavorite(datas) {
+    const btnStr = document.querySelectorAll('.btn-str')
+
+    btnStr.forEach(element => {
+
+        element.addEventListener('click', (e) => {
+
+            datas.forEach(p => {
+
+                const strIcon = document.getElementById(`star-icon${p.id}`)
+                // console.log(strIcon)
+                // console.log(e.target.id)
+                if (e.target.id === `star-icon${p.id}`) {
+                    if (strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg') {
+                        strIcon.src = '/assest/star.svg'
+                        let y = false
+                          console.log(p.id , y)
+                        checkFavorite(p.id,y)
+                      
+
+                    }
+                    else {
+                        strIcon.src = '/assest/star-fill.svg'
+                        let x = true;
+                          console.log(p.id , x)
+                        checkFavorite(p.id,x)
+                    }
+                }
+            })
+
+        })
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
 export function playStream() {
     channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')

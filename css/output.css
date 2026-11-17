@@ -409,26 +409,11 @@
   .bg-\[url\(\'\/assest\/search\.svg\'\)\] {
     background-image: url('/assest/search.svg');
   }
-  .bg-\[url\(\'\/assest\/star\.svg\'\)\] {
-    background-image: url('/assest/star.svg');
-  }
-  .bg-\[url\(\.\/assest\/star\.svg\)\] {
-    background-image: url(./assest/star.svg);
-  }
   .bg-\[url\(\/assest\/left_panel\.svg\)\] {
     background-image: url(/assest/left_panel.svg);
   }
   .bg-\[url\(\/assest\/right_panel\.svg\)\] {
     background-image: url(/assest/right_panel.svg);
-  }
-  .bg-\[url\(\/assest\/sea\.svg\)\] {
-    background-image: url(/assest/sea.svg);
-  }
-  .bg-\[url\(\/assest\/search\.svg\)\] {
-    background-image: url(/assest/search.svg);
-  }
-  .bg-\[url\(\/assest\/star\.svg\)\] {
-    background-image: url(/assest/star.svg);
   }
   .from-\[\#080808\] {
     --tw-gradient-from: #080808;
@@ -443,12 +428,6 @@
   }
   .bg-size-\[1\.5rem\] {
     background-size: 1.5rem;
-  }
-  .bg-size-\[2rem\] {
-    background-size: 2rem;
-  }
-  .bg-size-\[5px\] {
-    background-size: 5px;
   }
   .bg-center {
     background-position: center;
