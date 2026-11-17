@@ -38,7 +38,7 @@ export async function ajouteToMockupApi() {
     }
 
 }
-export async function checkTrueFalse(path) {
+export async function checkTrueFalse(path , sitiation) {
     // const response = await fetch(API_URL);
     // const channels = await response.json();
 
@@ -66,7 +66,7 @@ export async function checkTrueFalse(path) {
             progressPercentage: path.epg.progressPercentage
         },
             isFavorite: path.isFavorite,
-            isBlackliste: true
+            isBlackliste: sitiation
     }),
 
 
