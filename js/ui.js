@@ -283,6 +283,24 @@ export function gereerFavorite(daas) {
             })
             
         })
+        
+    })
+   
+}
+export function pannelDeBlacklist(){
+      blacklistBtn.addEventListener('click' , (e) =>{
+        popUp.classList.toggle('hidden')
+        space.classList.toggle('hidden')
+    })
+}
+export function afficherBlacklist(){
+    popUpList.innerHTML= ''
+   blackList.forEach(element => {
+        const list = document.createElement('li')
+        list.dataset.id = element.id
+        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3">`
+        popUpList.appendChild(list)
     })
 
 
