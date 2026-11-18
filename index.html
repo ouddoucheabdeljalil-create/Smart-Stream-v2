@@ -47,7 +47,7 @@
             class="bg-gradient-to-l from-[#080808] to-[#FF1010] hidden  lg:border-amber-50 border h-[50%] lg:h-auto lg:col-start-1 lg:col-end-4 lg:row-start-3 lg:row-span-20  ">
             <ul id="category-place" class="overflow-scroll h-full">
                 <li class="text-2xl text-amber-50 border-amber-50 border text-center" id="tout">tout</li>
-                <li class="text-2xl text-amber-50 border-amber-50 border flex justify-center gap-4  text-center" id="tout"><p>Favorite </p><img src="assest/star-fill.svg" alt=""></li>
+                <li class="text-2xl text-amber-50 border-amber-50 border flex justify-center gap-4  text-center" id="Favorite">Favorite<img id="img-favor" src="assest/star-fill.svg" alt=""></li>
             </ul>
         </aside>
 
@@ -69,6 +69,20 @@
             <ul id="popUp-list" class="overflow-auto h-full">
 
             </ul>
+        </div>
+        <div class="bg-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center left-80 top-44">
+            <h2 class="text-center font-['Roboto']">Ajoute nouveau channel</h2>
+            <form action="" class="flex flex-col items-center font-['Roboto'] gap-4 ">
+                <label for="name" >Nom</label>
+                <input type="text" id="name" class="bg-cyan-200 h-12 w-[70%] ">
+                <label for="category">category</label>
+                <input type="text" id="category" class="bg-cyan-200 h-12 w-[70%]">
+                <label for="numero">numéro</label>
+                <input type="number" id="numero" class="bg-cyan-200 h-12 w-[70%]">
+                <label for="logo">URL Logo</label>
+                <input type="text " id="logo" class="bg-cyan-200 h-12 w-[70%]">
+                <button class="bg-[#FF1010] h-10 w-[35%]">Ajoute</button>
+            </form>
         </div>
     </main>
     <footer></footer>
