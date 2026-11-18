@@ -1,6 +1,7 @@
-import { fetchData } from "./api.js";
-import { showChannels , removeHidden, showCategory , filterByCategory ,changeBgChannel, showDetailsChannel,playStream , pannelDeBlacklist , afficherBlacklist, returnChannelFromBlacklist} from "./ui.js";
-function app(){
+import { fetchData  } from "./api.js";
+// import { getBlacklistLocaleSorage } from "./storage.js";
+import { showChannels, removeHidden, showCategory , filterByCategory ,changeBgChannel, showDetailsChannel,playStream , pannelDeBlacklist  , afficherBlacklist, returnChannelFromBlacklist } from "./ui.js";
+
 fetchData()
 showChannels()
 showCategory()
@@ -10,8 +11,10 @@ removeHidden()
 afficherBlacklist() 
 showDetailsChannel()
 playStream()
+
 // ajouteToMockupApi()
 pannelDeBlacklist()
 returnChannelFromBlacklist()
-}
-document.addEventListener('DOMContentLoaded', app);
+
+
+// checkStrIcon(getBlacklistLocaleSorage())

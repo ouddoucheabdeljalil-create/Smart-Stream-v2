@@ -32,7 +32,7 @@ export async function ajouteToMockupApi() {
         await fetch(`${API_URL}/${channel.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ isFavorite: false, isBlacklisted: false }),
+            body: JSON.stringify({ isFavorite: false, isBlackliste: false }),
         });
 
     }
@@ -86,9 +86,10 @@ export async function checkFavorite(id, status) {
             body: JSON.stringify({ isFavorite : status }),
         })
         console.log(`${API_URL}/${id}` , status)
-        // if (!response.ok) throw new Error(response.status)
+        
         if (!resp.ok) throw new Error(resp.status);
     }
     catch (error) { console.error("function check favorite : ", error) }
     finally{console.log("terminer")}
 }
+
