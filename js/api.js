@@ -15,7 +15,7 @@ export async function fetchData() {
     }
     catch (error) {
         console.log('erorak')
-        console.error("error     :", error)
+        console.error("Function Fetch data : ", error)
         AddloadingSpin()
         loadingSearch()
     }
@@ -32,7 +32,7 @@ export async function ajouteToMockupApi() {
         await fetch(`${API_URL}/${channel.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ isFavorite: false, isBlacklisted: false }),
+            body: JSON.stringify({ isFavorite: false, isBlackliste: false }),
         });
 
     }
@@ -42,40 +42,56 @@ export async function checkTrueFalse(path, sitiation) {
     // const response = await fetch(API_URL);
     // const channels = await response.json();
 
+    try {
+        const response = await fetch(`${API_URL}/${path.id}`, {
 
-    await fetch(`${API_URL}/${path.id}`, {
-
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-            {
-                id: path.id,
-                channelNumber:path.channelNumber,
-                name: path.name,
-                category: path.category,
-                country: path.country,
-                countryCode: path.countryCode,
-                logo: path.logo,
-                previewImage: path.previewImage,
-                streamUrl: path.streamUrl,
-                isLive: path.isLive,
-                epg: {
-                    currentProgram: path.epg.currentProgram,
-                    startTime: path.epg.startTime,
-                    endTime: path.epg.endTime,
-                    progressPercentage: path.epg.progressPercentage
-                },
-                isFavorite: path.isFavorite,
-                isBlacklisted: sitiation,
-            },
-        ),
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(
+                {
+                    id: path.id,
+                    channelNumber: path.channelNumber,
+                    name: path.name,
+                    category: path.category,
+                    country: path.country,
+                    countryCode: path.countryCode,
+                    logo: path.logo,
+                    previewImage: path.previewImage,
+                    streamUrl: path.streamUrl,
+                    isLive: path.isLive,
+                    epg: {
+                        currentProgram: path.epg.currentProgram,
+                        startTime: path.epg.startTime,
+                        endTime: path.epg.endTime,
+                        progressPercentage: path.epg.progressPercentage
+                    },
+                    isFavorite: path.isFavorite,
+                    isBlackliste: sitiation
+                }),
 
 
-      })
-   
+        })
+        if (!response.ok) throw new Error(response.status);
+    }
+    catch (error) {
+        console.error("Function Check Blacklist", error)
+    }
 
 }
-
+export async function checkFavorite(id, status) {
+    try {
+        let resp = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ isFavorite : status }),
+        })
+        console.log(`${API_URL}/${id}` , status)
+        
+        if (!resp.ok) throw new Error(resp.status);
+    }
+    catch (error) { console.error("function check favorite : ", error) }
+    finally{console.log("terminer")}
+}
 
 
 

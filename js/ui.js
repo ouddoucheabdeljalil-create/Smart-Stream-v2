@@ -1,5 +1,5 @@
-import { getDataLocaleSorage, setDataLocaleSorage, getBlacklistLocaleSorage, setBlacklistLocaleSorage } from "./storage.js";
-import { checkTrueFalse } from "./api.js";
+import { getDataLocaleSorage, setDataLocaleSorage } from "./storage.js";
+import { checkTrueFalse, checkFavorite } from "./api.js";
 
 const channelsSpace = document.getElementById('channel-space')
 const spaceCategory = document.getElementById('space-catregory');
@@ -14,37 +14,45 @@ const blacklistBtn = document.getElementById('blacklist-btn')
 const popUpList = document.getElementById('popUp-list')
 const popUp = document.getElementById('popUp')
 const space = document.getElementById('space')
-const blackList = [] || getBlacklistLocaleSorage() 
+
 const data = getDataLocaleSorage()
 
 function afficher(arry, parent) {
+
     parent.innerHTML = ''
     arry.forEach(element => {
-
-        const list = document.createElement('li')
-        list.dataset.id = element.id
-        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-id="${element.id}"><img src="assest/star.svg" id="star-icon${element.id}"></button><button class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
-        parent.appendChild(list)
-        //  changeBgChannel()
-
+        if (element.isBlackliste === false) {
+            const list = document.createElement('li')
+            list.dataset.id = element.id
+            list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="${element.isFavorite ? '/assest/star-fill.svg' : '/assest/star.svg' }" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+            parent.appendChild(list)
+            //  changeBgChannel()
+        }
     });
+
     changeBgChannel()
-    filterBlackList(getDataLocaleSorage())
+    // filterBlackList(getDataLocaleSorage())
+    //  changeStrIcon(data)
+    // changeStrIcon(data)
+
+
 
 }
 
 export function showChannels() {
     afficher(data, channelsSpace)
-    changeStrIcon(data)
-
+    // checkStrIcon(getDataLocaleSorage())
+    gereerFavorite(getDataLocaleSorage())
+    afficherBlacklist()
     search.addEventListener('input', () => {
         let x = search.value.toLowerCase()
         console.log(x)
-        const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x)  );
+        const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x));
         afficher(filtered, channelsSpace)
-        changeStrIcon(filtered)
-        filterBlackList(filtered)
+        // checkStrIcon(filtered)
+        gereerFavorite(filtered)
+        // filterBlackList(filtered)
 
     })
 
@@ -89,11 +97,37 @@ export function filterByCategory() {
 
         let id = e.target.id
 
-
+        console.log(e.target.id)
         if (e.target.id === 'tout') {
             afficher(data, channelsSpace)
-            changeStrIcon(data)
-            filterBlackList(getDataLocaleSorage())
+            // checkStrIcon(getDataLocaleSorage())
+            gereerFavorite(data)
+            // filterBlackList(getDataLocaleSorage())
+            console.log('eeeee')
+
+        }
+        else if (e.target.id === 'Favorite' || e.target.id === "img-favor") {
+            channelsSpace.innerHTML = ''
+            getDataLocaleSorage().forEach(element => {
+                
+                if (element.isFavorite === true) {
+                    // makhdamch icon f favorite !!!!!!!!!!!!!!!!!!!!!!!!!
+                     let strIcon = document.getElementById(`star-icon${element.id}`)
+                     console.log(strIcon)
+                    const list = document.createElement('li')
+                    list.dataset.id = element.id
+                    list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+                    list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div  class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="/assest/star-fill.svg"  data-id="${element.id} id="star-icon${element.id}"></button><button class="btn-report" data-action="blacklist" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+                    channelsSpace.appendChild(list)
+                     changeBgChannel()
+                    if (strIcon === null)return 
+                    strIcon.src = '/assest/star-fill.svg'
+
+
+                }
+             
+            });
+
 
         }
         else {
@@ -101,9 +135,10 @@ export function filterByCategory() {
 
 
             afficher(channels, channelsSpace)
+            // checkStrIcon(channels)
 
-            changeStrIcon(channels)
-            filterBlackList(channels)
+            gereerFavorite(channels)
+            // filterBlackList(channels)
 
 
 
@@ -174,68 +209,86 @@ export function showDetailsChannel() {
     })
 
 }
-function changeStrIcon(datas) {
 
-    const btnStr = document.querySelectorAll('.btn-str')
 
-    btnStr.forEach(element => {
-        element.addEventListener('click', (e) => {
-            datas.forEach(p => {
-                const strIcon = document.querySelector(`#star-icon${p.id}`)
-                if (e.target.id === strIcon.id) {
-                    if (strIcon.src === 'http://127.0.0.1:5500/assest/star-fill.svg') {
-                        strIcon.src = '/assest/star.svg'
-                    }
-                    else {
-                        strIcon.src = '/assest/star-fill.svg'
-                    }
-                }
-            })
-
-        })
-    })
-
-}
-function filterBlackList(datas) {
-    
-    
-    const btnReport = document.querySelectorAll('.btn-report')
-    btnReport.forEach(element => {
-        element.addEventListener('click', (e) => {
-            const x = datas.find(p => e.currentTarget.dataset.id === p.id)
-            blackList.push(x)
-            // const y = datas.filter(pro => pro.id !== x.id)
-            const i = "isBlacklisted" ;
-            checkTrueFalse(x ,true)
-
-            // setDataLocaleSorage(y)
-            // afficher(y, channelsSpace)
-            console.log(getDataLocaleSorage())
-            // setBlacklistLocaleSorage(blackList)
-            // afficherBlacklist() 
-            
-        })
-        
-    })
-   
-}
-export function pannelDeBlacklist(){
-      blacklistBtn.addEventListener('click' , (e) =>{
+export function pannelDeBlacklist() {
+    blacklistBtn.addEventListener('click', (e) => {
         popUp.classList.toggle('hidden')
         space.classList.toggle('hidden')
+        returnChannelFromBlacklist()
+    })
+    space.addEventListener('click', () => {
+        popUp.classList.add('hidden')
+        space.classList.add('hidden')
     })
 }
-export function afficherBlacklist(){
-    popUpList.innerHTML= ''
-   blackList.forEach(element => {
-        const list = document.createElement('li')
-        list.dataset.id = element.id
-        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3">`
-        popUpList.appendChild(list)
+export function afficherBlacklist() {
+    popUpList.innerHTML = ''
+
+    getDataLocaleSorage().forEach(element => {
+
+
+        if (element.isBlackliste === true) {
+            // console.log('eeee')
+            const list = document.createElement('li')
+            list.dataset.id = element.id
+            list.className = `blacklist-place flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
+            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span> <button title="ajouter aux favoris" class="btn-return" data-id="${element.id}"><img src="assest/return.svg" classs="h-30" id="return-icon${element.id}"></button>`
+            popUpList.appendChild(list)
+        }
+        
     })
 }
-// afficherBlacklist()
+export function returnChannelFromBlacklist() {
+    popUpList.addEventListener('click', (e) => {
+        getDataLocaleSorage().forEach(element => {
+            if (e.target.id === `return-icon${element.id}` || e.target.tagName === 'BUTTON') {
+                checkTrueFalse(element, false)
+
+            }
+        })
+    })
+}
+
+export function gereerFavorite(daas) {
+    // const btnStr = document.querySelectorAll('.btn-str')
+
+    const btns = document.querySelectorAll(".btns")
+
+    btns.forEach(element => {
+        element.addEventListener('click', (e) => {
+            getDataLocaleSorage().forEach(tes => {
+                const strIcon = document.getElementById(`star-icon${tes.id}`)
+
+                if (e.currentTarget.dataset.action === 'favorite' || e.target.dataset.id == tes.id) {
+                    if (tes.isFavorite === false) {
+                        checkFavorite(tes.id, true)
+                        //  strIcon.src = '/assest/star-fill.svg'
+
+                    }
+                    else {
+                        tes.isFavorite === false
+                        //  strIcon.src = '/assest/star.svg'
+                        checkFavorite(tes.id, false)
+                    }
+                }
+                
+            if (e.currentTarget.dataset.action === 'blacklist' || e.target.id === `report-icon${tes.id}`){
+                if(tes.isBlackliste === false){checkTrueFalse(tes , true )}
+                // const affi = getDataLocaleSorage().filter(e => e.isBlackliste !== true)
+                afficher(data, channelsSpace)
+                // location.reload();
+                // checkStrIcon(getDataLocaleSorage())
+            }
+            })
+            
+        })
+    })
+
+
+
+}
+
 export function playStream() {
     channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')
@@ -250,4 +303,18 @@ export function playStream() {
         }
     })
 }
-// afficherBlacklist()
+// export function checkStrIcon(datas) {
+//     datas.forEach(element => {
+
+//         let strIcon = document.getElementById(`star-icon${element.id}`)
+
+//         if (element.isFavorite === true) {
+//             if (strIcon === null) { return }
+//             strIcon.src = '/assest/star-fill.svg'
+//         }
+//         else {
+//             if (strIcon === null) return
+//             strIcon.src = '/assest/star.svg'
+//         }
+//     })
+// }

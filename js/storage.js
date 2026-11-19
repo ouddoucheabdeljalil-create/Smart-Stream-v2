@@ -1,4 +1,5 @@
 export function setDataLocaleSorage(data){
+    localStorage.clear();
     localStorage.setItem('channels' , JSON.stringify(data))
 }
 export function getDataLocaleSorage(){
