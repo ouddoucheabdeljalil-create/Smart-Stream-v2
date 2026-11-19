@@ -76,6 +76,9 @@ export async function checkTrueFalse(path, sitiation) {
 
 }
 
+
+
+
 export async function ajouteChannelApi(id , objet){
     try{
         const response = await fetch (`${API_URL}/${id}`,{
@@ -89,5 +92,3 @@ export async function ajouteChannelApi(id , objet){
         console.error("Function de Post  : " , error)
     }
 }
-
-
