@@ -1,4 +1,4 @@
-import { setDataLocaleSorage } from "./storage.js";
+// import { setDataLocaleSorage } from "./storage.js";
 import { AddloadingSpin, loadingSearch } from "./ui.js";
 const API_URL = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels'
 export async function fetchData() {
@@ -10,8 +10,8 @@ export async function fetchData() {
         let data = await response.json()
         console.log(data)
 
-        setDataLocaleSorage(data)
-
+        // setDataLocaleSorage(data)
+        return data
     }
     catch (error) {
         console.log('erorak')
@@ -19,7 +19,6 @@ export async function fetchData() {
         AddloadingSpin()
         loadingSearch()
     }
-
 
 }
 export async function ajouteToMockupApi() {
@@ -67,29 +66,42 @@ export async function checkTrueFalse(path, sitiation) {
                     },
                     isFavorite: path.isFavorite,
                     isBlackliste: sitiation
-                }),
-
-
+                }
+            ),
         })
-        if (!response.ok) throw new Error(response.status);
     }
-    catch (error) {
-        console.error("Function Check Blacklist", error)
-    }
-
+    catch{}
 }
-export async function checkFavorite(id, status) {
-    try {
-        let resp = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ isFavorite : status }),
-        })
-        console.log(`${API_URL}/${id}` , status)
+
+
+
         
-        if (!resp.ok) throw new Error(resp.status);
+export async function ajouteChannelApi(id, objet) {
+        try {
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'pplication/jsdon' },
+                body: JSON.stringify(objet),
+            })
+            if (!response.ok) throw new Error(response.status);
+        }
+        catch (error) {
+            console.error("Function Check Blacklist", error)
+        }
+
     }
-    catch (error) { console.error("function check favorite : ", error) }
-    finally{console.log("terminer")}
-}
+    export async function checkFavorite(id, status) {
+        try {
+            let resp = await fetch(`${API_URL}/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ isFavorite: status }),
+            })
+            console.log(`${API_URL}/${id}`, status)
+
+            if (!resp.ok) throw new Error(resp.status);
+        }
+        catch (error) { console.error("function check favorite : ", error) }
+        finally { console.log("terminer") }
+    }
 
