@@ -306,18 +306,6 @@ export function playStream() {
         }
     })
 }
-// export function checkStrIcon(datas) {
-//     datas.forEach(element => {
-
-//         let strIcon = document.getElementById(`star-icon${element.id}`)
-
-//         if (element.isFavorite === true) {
-//             if (strIcon === null) { return }
-//             strIcon.src = '/assest/star-fill.svg'
-//         }
-//         else {
-//             if (strIcon === null) return
-//             strIcon.src = '/assest/star.svg'
-//         }
-//     })
-// }
+export function popUpAjouteChannel(){
+    const btnSubmit = document.getElementById('btn-submit')
+}
