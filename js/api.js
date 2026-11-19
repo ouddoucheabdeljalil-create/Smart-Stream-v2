@@ -76,15 +76,15 @@ export async function checkTrueFalse(path, sitiation) {
 
 
 
-export async function ajouteChannelApi(nom, categorys, logoUrl, number ,data) {
- 
+export async function ajouteChannelApi(nom, categorys, logoUrl, number, data) {
+
     try {
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                id: data.length +1,
-                channelNumber:number,
+                id: data.length + 1,
+                channelNumber: number,
                 name: nom,
                 category: categorys,
                 country: "Algeria",
@@ -127,21 +127,10 @@ export async function checkFavorite(id, status) {
     finally { console.log("terminer") }
 }
 
-
-
-
-
-
-export async function ajouteChannelApi(id , objet){
-    try{
-        const response = await fetch (`${API_URL}/${id}`,{
-            method : "POST",
-            headers : {'Content-Type' : 'pplication/jsdon'},
-            body : JSON.stringify(objet),
-        })
-        if(!response.ok) throw new Error(response.status)
+export async function deleteFromeApi() {
+    try {
+        const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+        if (!response.ok) throw new Error(response.status)
     }
-    catch(error){
-        console.error("Function de Post  : " , error)
-    }
+    catch (error) { console.error('Function de delete : ' ,error) }
 }
