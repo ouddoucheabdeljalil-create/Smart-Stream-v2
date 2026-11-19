@@ -25,7 +25,7 @@ function afficher(arry, parent) {
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="${element.isFavorite ? '/assest/star-fill.svg' : '/assest/star.svg'}" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+            list.innerHTML = ` <span data-id="${element.id}">${element.channelNumber}</span><span data-id="${element.id}">${element.name}</span><div class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="${element.isFavorite ? '/assest/star-fill.svg' : '/assest/star.svg'}" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
             parent.appendChild(list)
             //  changeBgChannel()
         }
@@ -114,16 +114,16 @@ export function filterByCategory(data) {
 
                 if (element.isFavorite === true) {
                     // makhdamch icon f favorite !!!!!!!!!!!!!!!!!!!!!!!!!
-                    let strIcon = document.getElementById(`star-icon${element.id}`)
-                    console.log(strIcon)
+                    // let strIcon = document.getElementById(`star-icon${element.id}`)
+                    // console.log(strIcon)
                     const list = document.createElement('li')
                     list.dataset.id = element.id
                     list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
                     list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div  class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="/assest/star-fill.svg"  data-id="${element.id} id="star-icon${element.id}"></button><button class="btn-report" data-action="blacklist" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
                     channelsSpace.appendChild(list)
                     changeBgChannel()
-                    if (strIcon === null) return
-                    strIcon.src = '/assest/star-fill.svg'
+                    // if (strIcon === null) return
+                    // strIcon.src = '/assest/star-fill.svg'
 
 
                 }
@@ -304,7 +304,7 @@ export function ajouteSpace() {
         bgPopUpAjoute.classList.add('hidden')
     })
 }
-export function playStream() {
+export function playStream(data) {
     channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')
         let url = data.find(element => element.id === channelsClass.dataset.id)
@@ -321,10 +321,23 @@ export function popUpAjouteChannel(data) {
     const categoryInput = document.getElementById('category')
     const LogoInput = document.getElementById('logo')
     const numberInput = document.getElementById('numero')
+    const message = document.getElementById('message')
+
+    const regexNom = /^[a-zA-Z0-9]{2,}$/
+    const regexNum = /^[0-9]+$/
+   
 
     btnSubmit.addEventListener('click', (e) => {
         console.log(nameInput.value)
         e.preventDefault()
         ajouteChannelApi(nameInput.value,categoryInput.value,LogoInput.value,numberInput.value,data)
+         if(!regexNom.test(nameInput)){
+        
+        message.textContent = '3awd dkhl'
+        nameInput.classList.add('border border-red-600')
+        
+        
+    }
     })
 }
+

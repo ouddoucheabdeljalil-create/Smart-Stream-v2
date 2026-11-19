@@ -57,7 +57,7 @@
                 class="flex items-center justify-center rounded-2xl  border border-[#FF1010] w-[95%] h-full ">
                 <span id="spin" class=""></span>
                 <!-- <img src="assest/banner.png" alt="" class="w-full h-full rounded-2xl "> -->
-                <video id="videoPlayer" src="" controls class="w-full h-full rounded-2xl"></video>
+                <video id="videoPlayer" src="" controls autoplay  class="w-full h-full rounded-2xl"></video>
             </div>
         </div>
         <div id="detais-space"
@@ -71,17 +71,18 @@
             </ul>
         </div>
         <div id="space-popUp" class="absolute bg-white/30 backdrop-blur-sm h-[90%] w-full left-0 hidden "></div>
-        <div id="ajouteNouveau" class="bg-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center left-80 top-44 hidden ">
+        <div id="ajouteNouveau" class="bg-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center left-80 top-44 shadow-xl/30 hidden ">
             <h2 class="text-center font-['Roboto']">Ajoute nouveau channel</h2>
             <form action="" class="flex flex-col items-center font-['Roboto'] gap-4 ">
                 <label for="name" >Nom</label>
-                <input type="text" id="name" class="bg-cyan-200 h-12 w-[70%] ">
+                <input type="text" id="name" class="bg-cyan-200 h-12 w-[70%]">
                 <label for="category">category</label>
                 <input type="text" id="category" class="bg-cyan-200 h-12 w-[70%]">
                 <label for="numero">numéro</label>
                 <input type="number" id="numero" class="bg-cyan-200 h-12 w-[70%]">
                 <label for="logo">URL Logo</label>
                 <input type="text " id="logo" class="bg-cyan-200 h-12 w-[70%]">
+                <span id="message" class="text-red-600"></span>
                 <button id="btn-submit" class="bg-[#FF1010] h-10 w-[35%]">Ajoute</button>
             </form>
         </div>
