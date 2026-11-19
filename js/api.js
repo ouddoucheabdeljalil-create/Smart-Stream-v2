@@ -2,7 +2,7 @@ import { setDataLocaleSorage } from "./storage.js";
 import { AddloadingSpin, loadingSearch } from "./ui.js";
 const API_URL = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels'
 export async function fetchData() {
-    // const url = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels';
+
     try {
         let response = await fetch(API_URL);
         if (!response.ok) throw new Error(response.status);
