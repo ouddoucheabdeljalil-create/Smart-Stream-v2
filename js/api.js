@@ -127,7 +127,7 @@ export async function checkFavorite(id, status) {
     finally { console.log("terminer") }
 }
 
-export async function deleteFromeApi() {
+export async function deleteFromeApi(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
         if (!response.ok) throw new Error(response.status)
