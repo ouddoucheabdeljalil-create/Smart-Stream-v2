@@ -1,4 +1,4 @@
-import { getDataLocaleSorage, setDataLocaleSorage } from "./storage.js";
+// import { getDataLocaleSorage, setDataLocaleSorage } from "./storage.js";
 import { checkTrueFalse, checkFavorite } from "./api.js";
 
 const channelsSpace = document.getElementById('channel-space')
@@ -15,7 +15,7 @@ const popUpList = document.getElementById('popUp-list')
 const popUp = document.getElementById('popUp')
 const space = document.getElementById('space')
 
-const data = getDataLocaleSorage()
+// const data = getDataLocaleSorage()
 
 function afficher(arry, parent) {
 
@@ -30,7 +30,6 @@ function afficher(arry, parent) {
             //  changeBgChannel()
         }
     });
-
     changeBgChannel()
     // filterBlackList(getDataLocaleSorage())
     //  changeStrIcon(data)
@@ -40,24 +39,27 @@ function afficher(arry, parent) {
 
 }
 
-export function showChannels() {
+export function showChannels(data) {
+    
     afficher(data, channelsSpace)
     // checkStrIcon(getDataLocaleSorage())
-    gereerFavorite(getDataLocaleSorage())
-    afficherBlacklist()
+    gereerFavorite(data)
+    // afficherBlacklist()
     search.addEventListener('input', () => {
         let x = search.value.toLowerCase()
         console.log(x)
-        const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x));
+        const filtered = data.filter(p => p.name.toLowerCase().includes(x));
         afficher(filtered, channelsSpace)
         // checkStrIcon(filtered)
         gereerFavorite(filtered)
         // filterBlackList(filtered)
 
     })
+    
 
 }
-export function showCategory() {
+export function showCategory(data) {
+   
     data.forEach(e => {
         const list = document.querySelector(`#${e.category}`)
         if (!list) {
@@ -90,7 +92,7 @@ export function removeHidden() {
 
 }
 
-export function filterByCategory() {
+export function filterByCategory(data) {
     spaceCategory.addEventListener('click', (e) => {
 
 
@@ -108,7 +110,7 @@ export function filterByCategory() {
         }
         else if (e.target.id === 'Favorite' || e.target.id === "img-favor") {
             channelsSpace.innerHTML = ''
-            getDataLocaleSorage().forEach(element => {
+            data.forEach(element => {
                 
                 if (element.isFavorite === true) {
                     // makhdamch icon f favorite !!!!!!!!!!!!!!!!!!!!!!!!!
@@ -131,7 +133,7 @@ export function filterByCategory() {
 
         }
         else {
-            const channels = getDataLocaleSorage().filter(e => e.category == id)
+            const channels = data.filter(e => e.category == id)
 
 
             afficher(channels, channelsSpace)
@@ -172,7 +174,7 @@ export function changeBgChannel() {
     })
 }
 
-export function showDetailsChannel() {
+export function showDetailsChannel(data) {
 
     channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')
@@ -215,21 +217,22 @@ export function pannelDeBlacklist() {
     blacklistBtn.addEventListener('click', (e) => {
         popUp.classList.toggle('hidden')
         space.classList.toggle('hidden')
-        returnChannelFromBlacklist()
+        // returnChannelFromBlacklist()
     })
     space.addEventListener('click', () => {
         popUp.classList.add('hidden')
         space.classList.add('hidden')
     })
 }
-export function afficherBlacklist() {
+export function afficherBlacklist(datas) {
+    console.log('eeeee' ,datas)
     popUpList.innerHTML = ''
 
-    getDataLocaleSorage().forEach(element => {
+    datas.forEach(element => {
 
 
         if (element.isBlackliste === true) {
-            // console.log('eeee')
+          
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `blacklist-place flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
@@ -239,9 +242,9 @@ export function afficherBlacklist() {
         
     })
 }
-export function returnChannelFromBlacklist() {
+export function returnChannelFromBlacklist(data) {
     popUpList.addEventListener('click', (e) => {
-        getDataLocaleSorage().forEach(element => {
+        data.forEach(element => {
             if (e.target.id === `return-icon${element.id}` || e.target.tagName === 'BUTTON') {
                 checkTrueFalse(element, false)
 
@@ -250,14 +253,14 @@ export function returnChannelFromBlacklist() {
     })
 }
 
-export function gereerFavorite(daas) {
+export function gereerFavorite(data) {
     // const btnStr = document.querySelectorAll('.btn-str')
 
     const btns = document.querySelectorAll(".btns")
 
     btns.forEach(element => {
         element.addEventListener('click', (e) => {
-            getDataLocaleSorage().forEach(tes => {
+            data.forEach(tes => {
                 const strIcon = document.getElementById(`star-icon${tes.id}`)
 
                 if (e.currentTarget.dataset.action === 'favorite' || e.target.dataset.id == tes.id) {
