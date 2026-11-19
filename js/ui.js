@@ -308,9 +308,6 @@ export function playStream() {
     channelsSpace.addEventListener('click', (e) => {
         let channelsClass = e.target.closest('.list')
         let url = data.find(element => element.id === channelsClass.dataset.id)
-
-
-
         if (Hls.isSupported()) {
             const hls = new Hls()
             hls.loadSource(url.streamUrl)

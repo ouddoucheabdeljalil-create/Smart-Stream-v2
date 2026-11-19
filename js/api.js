@@ -127,3 +127,6 @@ export async function checkFavorite(id, status) {
     finally { console.log("terminer") }
 }
 
+
+
+
