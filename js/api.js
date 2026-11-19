@@ -70,38 +70,60 @@ export async function checkTrueFalse(path, sitiation) {
             ),
         })
     }
-    catch{}
+    catch { }
 }
 
 
 
-        
-export async function ajouteChannelApi(id, objet) {
-        try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'pplication/jsdon' },
-                body: JSON.stringify(objet),
-            })
-            if (!response.ok) throw new Error(response.status);
-        }
-        catch (error) {
-            console.error("Function Check Blacklist", error)
-        }
 
-    }
-    export async function checkFavorite(id, status) {
-        try {
-            let resp = await fetch(`${API_URL}/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ isFavorite: status }),
-            })
-            console.log(`${API_URL}/${id}`, status)
+export async function ajouteChannelApi(nom, categorys, logoUrl, number ,data) {
+ 
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: data.length +1,
+                channelNumber:number,
+                name: nom,
+                category: categorys,
+                country: "Algeria",
+                countryCode: "DZ",
+                logo: logoUrl,
+                previewImage: "https://via.placeholder.com/800x450?text=CNN+Live",
+                streamUrl: "https://live-hls-web-aja.getaj.net/AJA/index.m3u8",
+                isLive: true,
+                epg: {
+                    currentProgram: "State of the Union (Ep. 86)",
+                    startTime: "21:30",
+                    endTime: "22:45",
+                    progressPercentage: 57
+                },
+                isFavorite: false,
+                isBlackliste: false
 
-            if (!resp.ok) throw new Error(resp.status);
-        }
-        catch (error) { console.error("function check favorite : ", error) }
-        finally { console.log("terminer") }
+            })
+        })
+        if (!response.ok) throw new Error(response.status);
     }
+    catch (error) {
+        console.error("Function Check Blacklist", error)
+    }
+
+}
+
+export async function checkFavorite(id, status) {
+    try {
+        let resp = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ isFavorite: status }),
+        })
+        console.log(`${API_URL}/${id}`, status)
+
+        if (!resp.ok) throw new Error(resp.status);
+    }
+    catch (error) { console.error("function check favorite : ", error) }
+    finally { console.log("terminer") }
+}
 

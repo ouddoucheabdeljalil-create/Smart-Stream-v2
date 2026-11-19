@@ -19,7 +19,7 @@
         class="flex justify-between items-center col-start-1 col-end-13 border bg-gradient-to-r from-[#080808] to-[#FF1010] border-solid">
         <a href="index.html"><img src="assest/dodrarstreamlogo.png" alt="" class="h-15 pl-5"></a>
         <div class="pr-8">
-            <button title="ajoute channel"><img src="assest/add.svg" alt="ajoute channel" class="h-12" ></button>
+            <button title="ajoute channel"><img src="assest/add.svg" alt="ajoute channel" id="btn-ajoute" class="h-12" ></button>
 
             <button title="blacklist-btn"><img src="assest/report-white.svg" alt="blacklist-btn" class="h-12" id="blacklist-btn"></button>
         </div>
@@ -70,7 +70,8 @@
 
             </ul>
         </div>
-        <div class="bg-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center left-80 top-44 hidden">
+        <div id="space-popUp" class="absolute bg-white/30 backdrop-blur-sm h-[90%] w-full left-0 hidden "></div>
+        <div id="ajouteNouveau" class="bg-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center left-80 top-44 hidden ">
             <h2 class="text-center font-['Roboto']">Ajoute nouveau channel</h2>
             <form action="" class="flex flex-col items-center font-['Roboto'] gap-4 ">
                 <label for="name" >Nom</label>
@@ -81,7 +82,7 @@
                 <input type="number" id="numero" class="bg-cyan-200 h-12 w-[70%]">
                 <label for="logo">URL Logo</label>
                 <input type="text " id="logo" class="bg-cyan-200 h-12 w-[70%]">
-                <button class="bg-[#FF1010] h-10 w-[35%]">Ajoute</button>
+                <button id="btn-submit" class="bg-[#FF1010] h-10 w-[35%]">Ajoute</button>
             </form>
         </div>
     </main>
