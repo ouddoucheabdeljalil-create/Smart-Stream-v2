@@ -67,29 +67,42 @@ export async function checkTrueFalse(path, sitiation) {
                     },
                     isFavorite: path.isFavorite,
                     isBlackliste: sitiation
-                }),
-
-
+                }
+            ),
         })
-        if (!response.ok) throw new Error(response.status);
     }
-    catch (error) {
-        console.error("Function Check Blacklist", error)
-    }
-
+    catch{}
 }
-export async function checkFavorite(id, status) {
-    try {
-        let resp = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ isFavorite : status }),
-        })
-        console.log(`${API_URL}/${id}` , status)
+
+
+
         
-        if (!resp.ok) throw new Error(resp.status);
+export async function ajouteChannelApi(id, objet) {
+        try {
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'pplication/jsdon' },
+                body: JSON.stringify(objet),
+            })
+            if (!response.ok) throw new Error(response.status);
+        }
+        catch (error) {
+            console.error("Function Check Blacklist", error)
+        }
+
     }
-    catch (error) { console.error("function check favorite : ", error) }
-    finally{console.log("terminer")}
-}
+    export async function checkFavorite(id, status) {
+        try {
+            let resp = await fetch(`${API_URL}/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ isFavorite: status }),
+            })
+            console.log(`${API_URL}/${id}`, status)
+
+            if (!resp.ok) throw new Error(resp.status);
+        }
+        catch (error) { console.error("function check favorite : ", error) }
+        finally { console.log("terminer") }
+    }
 
