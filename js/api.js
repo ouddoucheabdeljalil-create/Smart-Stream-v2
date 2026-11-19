@@ -70,6 +70,15 @@ export async function checkTrueFalse(path, sitiation) {
                 }),
 
 
+
+
+
+export async function ajouteChannelApi(id , objet){
+    try{
+        const response = await fetch (`${API_URL}/${id}`,{
+            method : "POST",
+            headers : {'Content-Type' : 'pplication/jsdon'},
+            body : JSON.stringify(objet),
         })
         if (!response.ok) throw new Error(response.status);
     }
