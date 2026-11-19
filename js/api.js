@@ -1,4 +1,4 @@
-import { setDataLocaleSorage } from "./storage.js";
+// import { setDataLocaleSorage } from "./storage.js";
 import { AddloadingSpin, loadingSearch } from "./ui.js";
 const API_URL = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels'
 export async function fetchData() {
@@ -10,8 +10,8 @@ export async function fetchData() {
         let data = await response.json()
         console.log(data)
 
-        setDataLocaleSorage(data)
-
+        // setDataLocaleSorage(data)
+        return data
     }
     catch (error) {
         console.log('erorak')
@@ -19,7 +19,6 @@ export async function fetchData() {
         AddloadingSpin()
         loadingSearch()
     }
-
 
 }
 export async function ajouteToMockupApi() {
