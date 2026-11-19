@@ -229,7 +229,7 @@ export function afficherBlacklist() {
 
 
         if (element.isBlackliste === true) {
-            // console.log('eeee')
+          
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `blacklist-place flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
