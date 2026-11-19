@@ -25,7 +25,7 @@ function afficher(arry, parent) {
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="assest/star.svg" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="${element.isFavorite ? '/assest/star-fill.svg' : '/assest/star.svg' }" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
             parent.appendChild(list)
             //  changeBgChannel()
         }
@@ -42,7 +42,7 @@ function afficher(arry, parent) {
 
 export function showChannels() {
     afficher(data, channelsSpace)
-    checkStrIcon(getDataLocaleSorage())
+    // checkStrIcon(getDataLocaleSorage())
     gereerFavorite(getDataLocaleSorage())
     afficherBlacklist()
     search.addEventListener('input', () => {
@@ -50,7 +50,7 @@ export function showChannels() {
         console.log(x)
         const filtered = getDataLocaleSorage().filter(p => p.name.toLowerCase().includes(x));
         afficher(filtered, channelsSpace)
-        checkStrIcon(filtered)
+        // checkStrIcon(filtered)
         gereerFavorite(filtered)
         // filterBlackList(filtered)
 
@@ -100,7 +100,7 @@ export function filterByCategory() {
         console.log(e.target.id)
         if (e.target.id === 'tout') {
             afficher(data, channelsSpace)
-            checkStrIcon(getDataLocaleSorage())
+            // checkStrIcon(getDataLocaleSorage())
             gereerFavorite(data)
             // filterBlackList(getDataLocaleSorage())
             console.log('eeeee')
@@ -117,7 +117,7 @@ export function filterByCategory() {
                     const list = document.createElement('li')
                     list.dataset.id = element.id
                     list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-                    list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div  class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="assest/star.svg"  data-id="${element.id} id="star-icon${element.id}"></button><button class="btn-report" data-action="blacklist" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
+                    list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div  class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="/assest/star-fill.svg"  data-id="${element.id} id="star-icon${element.id}"></button><button class="btn-report" data-action="blacklist" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button></div>`
                     channelsSpace.appendChild(list)
                      changeBgChannel()
                     if (strIcon === null)return 
@@ -135,7 +135,7 @@ export function filterByCategory() {
 
 
             afficher(channels, channelsSpace)
-            checkStrIcon(channels)
+            // checkStrIcon(channels)
 
             gereerFavorite(channels)
             // filterBlackList(channels)
@@ -278,29 +278,11 @@ export function gereerFavorite(daas) {
                 // const affi = getDataLocaleSorage().filter(e => e.isBlackliste !== true)
                 afficher(data, channelsSpace)
                 // location.reload();
-                checkStrIcon(getDataLocaleSorage())
+                // checkStrIcon(getDataLocaleSorage())
             }
             })
             
         })
-        
-    })
-   
-}
-export function pannelDeBlacklist(){
-      blacklistBtn.addEventListener('click' , (e) =>{
-        popUp.classList.toggle('hidden')
-        space.classList.toggle('hidden')
-    })
-}
-export function afficherBlacklist(){
-    popUpList.innerHTML= ''
-   blackList.forEach(element => {
-        const list = document.createElement('li')
-        list.dataset.id = element.id
-        list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-        list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3">`
-        popUpList.appendChild(list)
     })
 
 
@@ -321,18 +303,18 @@ export function playStream() {
         }
     })
 }
-export function checkStrIcon(datas) {
-    datas.forEach(element => {
+// export function checkStrIcon(datas) {
+//     datas.forEach(element => {
 
-        let strIcon = document.getElementById(`star-icon${element.id}`)
+//         let strIcon = document.getElementById(`star-icon${element.id}`)
 
-        if (element.isFavorite === true) {
-            if (strIcon === null) { return }
-            strIcon.src = '/assest/star-fill.svg'
-        }
-        else {
-            if (strIcon === null) return
-            strIcon.src = '/assest/star.svg'
-        }
-    })
-}
+//         if (element.isFavorite === true) {
+//             if (strIcon === null) { return }
+//             strIcon.src = '/assest/star-fill.svg'
+//         }
+//         else {
+//             if (strIcon === null) return
+//             strIcon.src = '/assest/star.svg'
+//         }
+//     })
+// }
