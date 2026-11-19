@@ -1,8 +1,8 @@
-import { setDataLocaleSorage } from "./storage.js";
+// import { setDataLocaleSorage } from "./storage.js";
 import { AddloadingSpin, loadingSearch } from "./ui.js";
 const API_URL = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels'
 export async function fetchData() {
-    // const url = 'https://6af1ff2842c6561ced38e417.mockapi.io/channels';
+
     try {
         let response = await fetch(API_URL);
         if (!response.ok) throw new Error(response.status);
@@ -10,8 +10,8 @@ export async function fetchData() {
         let data = await response.json()
         console.log(data)
 
-        setDataLocaleSorage(data)
-
+        // setDataLocaleSorage(data)
+        return data
     }
     catch (error) {
         console.log('erorak')
@@ -19,7 +19,6 @@ export async function fetchData() {
         AddloadingSpin()
         loadingSearch()
     }
-
 
 }
 export async function ajouteToMockupApi() {
@@ -67,18 +66,43 @@ export async function checkTrueFalse(path, sitiation) {
                     },
                     isFavorite: path.isFavorite,
                     isBlackliste: sitiation
-                }),
+                }
+            ),
+        })
+    }
+    catch { }
+}
 
 
 
 
+export async function ajouteChannelApi(nom, categorys, logoUrl, number ,data) {
+ 
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: data.length +1,
+                channelNumber:number,
+                name: nom,
+                category: categorys,
+                country: "Algeria",
+                countryCode: "DZ",
+                logo: logoUrl,
+                previewImage: "https://via.placeholder.com/800x450?text=CNN+Live",
+                streamUrl: "https://live-hls-web-aja.getaj.net/AJA/index.m3u8",
+                isLive: true,
+                epg: {
+                    currentProgram: "State of the Union (Ep. 86)",
+                    startTime: "21:30",
+                    endTime: "22:45",
+                    progressPercentage: 57
+                },
+                isFavorite: false,
+                isBlackliste: false
 
-export async function ajouteChannelApi(id , objet){
-    try{
-        const response = await fetch (`${API_URL}/${id}`,{
-            method : "POST",
-            headers : {'Content-Type' : 'pplication/jsdon'},
-            body : JSON.stringify(objet),
+            })
         })
         if (!response.ok) throw new Error(response.status);
     }
@@ -87,18 +111,19 @@ export async function ajouteChannelApi(id , objet){
     }
 
 }
+
 export async function checkFavorite(id, status) {
     try {
         let resp = await fetch(`${API_URL}/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ isFavorite : status }),
+            body: JSON.stringify({ isFavorite: status }),
         })
-        console.log(`${API_URL}/${id}` , status)
-        
+        console.log(`${API_URL}/${id}`, status)
+
         if (!resp.ok) throw new Error(resp.status);
     }
     catch (error) { console.error("function check favorite : ", error) }
-    finally{console.log("terminer")}
+    finally { console.log("terminer") }
 }
 
