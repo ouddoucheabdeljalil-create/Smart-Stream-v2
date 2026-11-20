@@ -26,7 +26,9 @@ const nameInput = document.getElementById('name')
 const categoryInput = document.getElementById('category')
 const LogoInput = document.getElementById('logo')
 const numberInput = document.getElementById('numero')
-const message = document.getElementById('message')
+const message1 = document.getElementById('message1')
+const message2 = document.getElementById('message2')
+const message3 = document.getElementById('message3')
 
 
 // const data = getDataLocaleSorage()
@@ -287,7 +289,7 @@ export function gereerFavorite(data) {
                 if (e.currentTarget.dataset.action === 'favorite' || e.target.dataset.id == tes.id) {
                     if (tes.isFavorite === false) {
                         checkFavorite(tes.id, true)
-                         strIcon.src = '/assest/star-fill.svg'
+                        strIcon.src = '/assest/star-fill.svg'
 
                     }
                     else {
@@ -301,10 +303,10 @@ export function gereerFavorite(data) {
                 if (e.currentTarget.dataset.action === 'blacklist' || e.target.id === `report-icon${tes.id}`) {
                     if (tes.isBlackliste === false) {
                         checkTrueFalse(tes, true)
-                         e.target.parentElement.closest('LI').remove()
-                      
+                        e.target.parentElement.closest('LI').remove()
+
                     }
-                
+
                 }
                 if (e.currentTarget.dataset.action === 'modifier' || e.target.id === `modifier-icon${tes.id}`) {
                     console.log('modifier')
@@ -327,7 +329,8 @@ export function gereerFavorite(data) {
                         }
                         console.log(nameInput.value)
                         e.preventDefault()
-                        modifierApi(tes.id, objet)
+                        
+                        regex(modifierApi(tes.id, objet))
 
                     })
                     console.log('mdmdmdm')
@@ -365,29 +368,53 @@ export function playStream(data) {
 }
 export function popUpAjouteChannel(data) {
 
-    const regexNom = /^[a-zA-Z0-9]{2,}$/
-    const regexNum = /^[0-9]{1,}$/
+
 
     btnAjoute.addEventListener('click', () => {
         form.reset()
         titrePopUp.textContent = "Ajoute nouveau channel"
         btnSubmit.textContent = "Ajouter"
 
-        btnSubmit.addEventListener('click', (e) => {
+        form.addEventListener('submit', (e) => {
             console.log(nameInput.value)
-            console.log('ajoute')
-            e.preventDefault()
-            ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data)
-            if (!regexNom.test(nameInput)) {
 
-                message.textContent = '3awd dkhl'
-                nameInput.classList.add('border border-red-600')
-            }
-            if(!regexNum.test(numberInput)){
-                message.textContent = '3awd dkhl'
-            }
-            else {message.textContent = ''}
+            e.preventDefault()
+          
+            regex(ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data))
         })
     })
+}
+function regex(func) {
+    const regexNom = /^.{2,30}$/
+    const regexNum = /^[0-9]{1,}$/
+    const regexLogo = /^[^ ]{10,50}$/
+
+    let x = false
+    let y = false
+    let z = false
+    if (!regexNom.test(nameInput.value)) {
+
+        message1.textContent = 'Le nom doit contenir entre 2 et 30 caractères '
+
+
+    }
+    else { message1.textContent = '', x = true }
+    if (!regexNum.test(numberInput.value)) {
+        message2.textContent = 'Le numéro doit contenir uniquement des chiffres.'
+    }
+    else { message2.textContent = '', y = true }
+    if (!regexLogo.test(LogoInput.value)) {
+        message3.textContent = 'Le lien du logo doit contenir entre 10 et 50 caractères sans espaces.'
+    }
+    else { message3.textContent = '', z = true }
+    if (x === true && y === true && z === true) {
+        console.log('ccccccccccccc')
+        func;
+        popUpAjoute.classList.add('hidden')
+        bgPopUpAjoute.classList.add('hidden')
+    }
+    x = false
+    y = false
+    z = false
 }
 
