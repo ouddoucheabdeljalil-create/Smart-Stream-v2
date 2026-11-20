@@ -115,7 +115,7 @@ export function filterByCategory(data) {
 
         let id = e.target.id
 
-        console.log(e.target.id)
+       
         if (e.target.id === 'tout') {
             afficher(data, channelsSpace)
             // checkStrIcon(getDataLocaleSorage())
@@ -330,7 +330,7 @@ export function gereerFavorite(data) {
                         console.log(nameInput.value)
                         e.preventDefault()
                         
-                        regex(modifierApi(tes.id, objet))
+                        regex(() => modifierApi(tes.id, objet))
 
                     })
                     console.log('mdmdmdm')
@@ -380,7 +380,7 @@ export function popUpAjouteChannel(data) {
 
             e.preventDefault()
           
-            regex(ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data))
+            regex(() => ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data))
         })
     })
 }
@@ -409,7 +409,7 @@ function regex(func) {
     else { message3.textContent = '', z = true }
     if (x === true && y === true && z === true) {
         console.log('ccccccccccccc')
-        func;
+        func();
         popUpAjoute.classList.add('hidden')
         bgPopUpAjoute.classList.add('hidden')
     }
@@ -418,3 +418,14 @@ function regex(func) {
     z = false
 }
 
+function lastCategry(){
+    spaceCategory.addEventListener('click' , (e) =>{
+        if(e.target.id !== 'category-place'){
+            const x = e.target.id
+            console.log(x)
+           localStorage.setItem('catregory' , JSON.stringify(x))
+        }
+        let y = JSON.parse(localStorage.getItem('catregory'))
+    })
+}
+lastCategry()

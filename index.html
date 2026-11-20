@@ -19,9 +19,11 @@
         class="flex justify-between items-center col-start-1 col-end-13 border bg-gradient-to-r from-[#080808] to-[#FF1010] border-solid">
         <a href="index.html"><img src="assest/dodrarstreamlogo.png" alt="" class="h-15 pl-5"></a>
         <div class="pr-8">
-            <button title="ajoute channel"><img src="assest/add.svg" alt="ajoute channel" id="btn-ajoute" class="h-12" ></button>
+            <button title="ajoute channel"><img src="assest/add.svg" alt="ajoute channel" id="btn-ajoute"
+                    class="h-12"></button>
 
-            <button title="blacklist-btn"><img src="assest/report-white.svg" alt="blacklist-btn" class="h-12" id="blacklist-btn"></button>
+            <button title="blacklist-btn"><img src="assest/report-white.svg" alt="blacklist-btn" class="h-12"
+                    id="blacklist-btn"></button>
         </div>
     </header>
     <main
@@ -47,7 +49,8 @@
             class="bg-gradient-to-l from-[#080808] to-[#FF1010] hidden  lg:border-amber-50 border h-[50%] lg:h-auto lg:col-start-1 lg:col-end-4 lg:row-start-3 lg:row-span-20  ">
             <ul id="category-place" class="overflow-scroll h-full">
                 <li class="text-2xl text-amber-50 border-amber-50 border text-center" id="tout">tout</li>
-                <li class="text-2xl text-amber-50 border-amber-50 border flex justify-center gap-4  text-center" id="Favorite">Favorite<img id="img-favor" src="assest/star-fill.svg" alt=""></li>
+                <li class="text-2xl text-amber-50 border-amber-50 border flex justify-center gap-4  text-center"
+                    id="Favorite">Favorite<img id="img-favor" src="assest/star-fill.svg" alt=""></li>
             </ul>
         </aside>
 
@@ -57,7 +60,7 @@
                 class="flex items-center justify-center rounded-2xl  border border-[#FF1010] w-[95%] h-full ">
                 <span id="spin" class=""></span>
                 <!-- <img src="assest/banner.png" alt="" class="w-full h-full rounded-2xl "> -->
-                <video id="videoPlayer" src="" controls autoplay  class="w-full h-full rounded-2xl"></video>
+                <video id="videoPlayer" src="" controls autoplay class="w-full h-full rounded-2xl"></video>
             </div>
         </div>
         <div id="detais-space"
@@ -71,33 +74,60 @@
             </ul>
         </div>
         <div id="space-popUp" class="absolute bg-white/30 backdrop-blur-sm h-[90%] w-full left-0 hidden "></div>
-        <div id="ajouteNouveau" class="border  bg-white/30 rounded-2xl  text-amber-50 absolute flex flex-col h-[80%] w-[50%] justify-center evenl left-80 top-38 hidden ">
-            <h2 class="text-center text-[#95271D] text-4xl font-['Roboto']" id="titre"></h2>
-            <form action="" id="form" class="flex flex-col   items-center font-['Roboto'] gap-4 ">
-                <label for="name" class="text-[#95271D] text-2xl">Nom</label>
-                <input type="text" id="name" class="bg-[#95271D] h-12 w-[70%] text-center rounded-2xl ">
-                <span id="message1" class="text-red-600"></span>
-                <label for="category" class="text-[#95271D] text-2xl">category</label>
-                
-                <!-- <input type="text" id="category" class="bg-cyan-200 h-12 w-[70%]"> -->
-                <select name="" id="category" class="bg-[#95271D] h-12 w-[70%] text-center rounded-2xl">
-                    <option value="MUSIC" >MUSIC</option>
-                    <option value="DOCUMENTARY">DOCUMENTARY</option>
-                    <option value="KIDS">KIDS</option>
-                    <option value="SPORTS">SPORTS</option>
-                    <option value="DOCUMENTARY">ENTERTAINMENT</option>
-                    <option value="NEWS">NEWS</option>
-                </select>
-                <label for="numero" class="text-[#95271D] text-2xl">numéro</label>
-                <input type="number" id="numero" class="bg-[#95271D]  h-12 w-[70%] text-center rounded-2xl">
-                <span id="message2" class="text-red-600"></span>
-                <label for="logo" class="text-[#95271D] text-2xl">URL Logo</label>
-                <input type="text " id="logo" class="bg-[#95271D] h-12 w-[70%] text-center rounded-2xl">
-                <span id="message3" class="text-red-600"></span>
-                <button id="btn-submit" class="border-[#95271D] border-2 text-[#95271D] rounded-2xl h-10 w-[35%] text-center"></button>
-            </form>
-        </div>
+
+        
+<div id="ajouteNouveau"
+    class="border hidden bg-white/30 rounded-2xl text-amber-50 absolute flex flex-col
+    h-[90%] w-[90%] left-[5%] top-[5%] justify-center
+    sm:w-[80%] sm:left-[10%]
+    md:w-[65%] md:left-[17.5%]
+    lg:w-[50%] lg:left-[25%]">
+
+    <h2 class="text-center text-[#95271D] text-2xl sm:text-3xl md:text-4xl font-['Roboto']"
+        id="titre"></h2>
+
+    <form action="" id="form"
+        class="flex flex-col items-center font-['Roboto'] gap-2 sm:gap-3 md:gap-4 overflow-y-auto p-3">
+
+        <label for="name" class="text-[#95271D] text-lg sm:text-xl md:text-2xl">Nom</label>
+        <input type="text" id="name"
+            class="bg-[#95271D] h-10 sm:h-12 w-[90%] sm:w-[80%] md:w-[70%] text-center rounded-2xl">
+
+        <span id="message1" class="text-red-600 text-sm"></span>
+
+        <label for="category" class="text-[#95271D] text-lg sm:text-xl md:text-2xl">Category</label>
+
+        <select name="" id="category"
+            class="bg-[#95271D] h-10 sm:h-12 w-[90%] sm:w-[80%] md:w-[70%] text-center rounded-2xl">
+            <option value="MUSIC">MUSIC</option>
+            <option value="DOCUMENTARY">DOCUMENTARY</option>
+            <option value="KIDS">KIDS</option>
+            <option value="SPORTS">SPORTS</option>
+            <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+            <option value="NEWS">NEWS</option>
+        </select>
+
+        <label for="numero" class="text-[#95271D] text-lg sm:text-xl md:text-2xl">Numéro</label>
+        <input type="number" id="numero"
+            class="bg-[#95271D] h-10 sm:h-12 w-[90%] sm:w-[80%] md:w-[70%] text-center rounded-2xl">
+
+        <span id="message2" class="text-red-600 text-sm"></span>
+
+        <label for="logo" class="text-[#95271D] text-lg sm:text-xl md:text-2xl">URL Logo</label>
+        <input type="text" id="logo"
+            class="bg-[#95271D] h-10 sm:h-12 w-[90%] sm:w-[80%] md:w-[70%] text-center rounded-2xl">
+
+        <span id="message3" class="text-red-600 text-sm"></span>
+
+        <button id="btn-submit"
+            class="border-[#95271D] border-2 text-[#95271D] rounded-2xl h-10 w-[60%] sm:w-[45%] md:w-[35%] text-center">
+        </button>
+    </form>
+</div>
+
+
     </main>
+         
     <footer></footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
