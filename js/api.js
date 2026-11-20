@@ -132,5 +132,16 @@ export async function deleteFromeApi(id) {
         const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
         if (!response.ok) throw new Error(response.status)
     }
-    catch (error) { console.error('Function de delete : ' ,error) }
+    catch (error) { console.error('Function de delete : ', error) }
+}
+export async function modifierApi(id, objet) {
+    try {
+        const resp = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(objet)
+        })
+        if (!resp.ok) throw new Error(resp.status)
+    }
+    catch (error) { console.error('function de modifier dans Api', error) }
 }

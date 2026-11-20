@@ -1,5 +1,5 @@
 // import { getDataLocaleSorage, setDataLocaleSorage } from "./storage.js";
-import { checkTrueFalse, checkFavorite, ajouteChannelApi,deleteFromeApi } from "./api.js";
+import { checkTrueFalse, checkFavorite, ajouteChannelApi, deleteFromeApi, modifierApi } from "./api.js";
 
 const channelsSpace = document.getElementById('channel-space')
 const spaceCategory = document.getElementById('space-catregory');
@@ -14,6 +14,19 @@ const blacklistBtn = document.getElementById('blacklist-btn')
 const popUpList = document.getElementById('popUp-list')
 const popUp = document.getElementById('popUp')
 const space = document.getElementById('space')
+// pop up --------------------------------------------------
+const popUpAjoute = document.getElementById('ajouteNouveau')
+const bgPopUpAjoute = document.getElementById('space-popUp')
+const btnAjoute = document.getElementById('btn-ajoute')
+const titrePopUp = document.getElementById('titre')
+// inputs : -------------------------------------------
+const btnSubmit = document.getElementById('btn-submit')
+const nameInput = document.getElementById('name')
+const categoryInput = document.getElementById('category')
+const LogoInput = document.getElementById('logo')
+const numberInput = document.getElementById('numero')
+const message = document.getElementById('message')
+
 
 // const data = getDataLocaleSorage()
 
@@ -25,7 +38,7 @@ function afficher(arry, parent) {
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `list flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-            list.innerHTML = ` <span data-id="${element.id}">${element.channelNumber}</span><span data-id="${element.id}">${element.name}</span><div class="btns flex gap-3"><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="${element.isFavorite ? '/assest/star-fill.svg' : '/assest/star.svg'}" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"></button><button data-action="delete"  class="btn-delete" title="suppremer" data-id="${element.id}"><img src="assest/delete.svg"  id="delete-icon${element.id}"></button></div>`
+            list.innerHTML = ` <span data-id="${element.id}">${element.channelNumber}</span><span data-id="${element.id}">${element.name}</span><div class="btns flex  gap-2 "><button title="ajouter aux favoris" class="btn-str" data-action="favorite" data-id="${element.id}"><img src="${element.isFavorite ? '/assest/star-fill.svg' : '/assest/star.svg'}" data-id="${element.id}" class="img-str" id="star-icon${element.id}"></button><button data-action="modifier"  class="btn-modifier" title="modifier" data-id="${element.id}"><img src="assest/edit.svg"  id="modifier-icon${element.id}"><button><button data-action="blacklist"  class="btn-report" title="ajouter à la liste noire" data-id="${element.id}"><img src="assest/report.svg"  id="report-icon${element.id}"><button></div>`
             parent.appendChild(list)
             //  changeBgChannel()
         }
@@ -236,7 +249,7 @@ export function afficherBlacklist(datas) {
             const list = document.createElement('li')
             list.dataset.id = element.id
             list.className = `blacklist-place flex flex-row justify-between  px-8 text-2xl text-amber-50 border-amber-50 border text-center`
-            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span> <button title="ajouter aux favoris" class="btn-return" data-id="${element.id}"><img src="assest/return.svg" classs="h-30" id="return-icon${element.id}"></button>`
+            list.innerHTML = ` <span>${element.channelNumber}</span><span>${element.name}</span><div class="flex gap-3"> <button data-action=""return title="ajouter aux favoris" class="btn-return" data-id="${element.id}"><img src="assest/return.svg" classs="h-30" id="return-icon${element.id}"></button></button><button data-action="delete"  class="btn-delete" title="suppremer" data-id="${element.id}"><img src="assest/delete.svg"  id="delete-icon${element.id}"></button></div>`
             popUpList.appendChild(list)
         }
 
@@ -245,8 +258,15 @@ export function afficherBlacklist(datas) {
 export function returnChannelFromBlacklist(data) {
     popUpList.addEventListener('click', (e) => {
         data.forEach(element => {
-            if (e.target.id === `return-icon${element.id}` || e.target.tagName === 'BUTTON') {
+            if (e.currentTarget.dataset.action === 'return' || e.target.id === `return-icon${element.id}`) {
                 checkTrueFalse(element, false)
+                e.target.parentElement.closest('LI').remove()
+
+            }
+            if (e.currentTarget.dataset.action === 'delete' || e.target.id === `delete-icon${element.id}`) {
+                deleteFromeApi(element.id)
+                e.target.parentElement.closest('LI').remove()
+
 
             }
         })
@@ -266,31 +286,52 @@ export function gereerFavorite(data) {
                 if (e.currentTarget.dataset.action === 'favorite' || e.target.dataset.id == tes.id) {
                     if (tes.isFavorite === false) {
                         checkFavorite(tes.id, true)
-                        //  strIcon.src = '/assest/star-fill.svg'
-                       
+                         strIcon.src = '/assest/star-fill.svg'
+
                     }
                     else {
                         tes.isFavorite === false
                         //  strIcon.src = '/assest/star.svg'
                         checkFavorite(tes.id, false)
-                      
+
                     }
                 }
 
                 if (e.currentTarget.dataset.action === 'blacklist' || e.target.id === `report-icon${tes.id}`) {
                     if (tes.isBlackliste === false) {
                         checkTrueFalse(tes, true)
-                        afficher(data, channelsSpace)
+                         e.target.parentElement.closest('LI').remove()
+                      
                     }
-                    // const affi = getDataLocaleSorage().filter(e => e.isBlackliste !== true)
+                
+                }
+                if (e.currentTarget.dataset.action === 'modifier' || e.target.id === `modifier-icon${tes.id}`) {
+                    console.log('modifier')
+                    titrePopUp.textContent = "modifier channel"
+                    btnSubmit.textContent = "Modifier"
 
-                  
-                    // checkStrIcon(getDataLocaleSorage())
+                    popUpAjoute.classList.remove('hidden')
+                    bgPopUpAjoute.classList.toggle('hidden')
+                    nameInput.value = tes.name
+                    numberInput.value = tes.channelNumber
+                    categoryInput.value = tes.category
+                    LogoInput.value = tes.logo
+                    btnSubmit.addEventListener('click', (e) => {
+
+                        const objet = {
+                            channelNumber: numberInput.value,
+                            name: nameInput.value,
+                            category: categoryInput.value,
+                            logo: LogoInput.value
+                        }
+                        console.log(nameInput.value)
+                        e.preventDefault()
+                        modifierApi(tes.id, objet)
+
+                    })
+                    console.log('mdmdmdm')
                 }
-                if (e.currentTarget.dataset.action === 'delete' || e.target.id === `delete-icon${tes.id}`) {
-                    deleteFromeApi(tes.id)
-                    
-                }
+
             })
 
         })
@@ -300,9 +341,7 @@ export function gereerFavorite(data) {
 
 }
 export function ajouteSpace() {
-    const popUpAjoute = document.getElementById('ajouteNouveau')
-    const bgPopUpAjoute = document.getElementById('space-popUp')
-    const btnAjoute = document.getElementById('btn-ajoute')
+
     btnAjoute.addEventListener('click', () => {
         popUpAjoute.classList.toggle('hidden')
         bgPopUpAjoute.classList.toggle('hidden')
@@ -324,28 +363,27 @@ export function playStream(data) {
     })
 }
 export function popUpAjouteChannel(data) {
-    const btnSubmit = document.getElementById('btn-submit')
-    const nameInput = document.getElementById('name')
-    const categoryInput = document.getElementById('category')
-    const LogoInput = document.getElementById('logo')
-    const numberInput = document.getElementById('numero')
-    const message = document.getElementById('message')
 
     const regexNom = /^[a-zA-Z0-9]{2,}$/
     const regexNum = /^[0-9]+$/
 
+    btnAjoute.addEventListener('click', () => {
+        titrePopUp.textContent = "Ajoute nouveau channel"
+        btnSubmit.textContent = "Ajouter"
 
-    btnSubmit.addEventListener('click', (e) => {
-        console.log(nameInput.value)
-        e.preventDefault()
-        ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data)
-        if (!regexNom.test(nameInput)) {
+        btnSubmit.addEventListener('click', (e) => {
+            console.log(nameInput.value)
+            console.log('ajoute')
+            e.preventDefault()
+            ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data)
+            // if (!regexNom.test(nameInput)) {
 
-            message.textContent = '3awd dkhl'
-            nameInput.classList.add('border border-red-600')
+            //     message.textContent = '3awd dkhl'
+            //     nameInput.classList.add('border border-red-600')
 
 
-        }
+            // }
+        })
     })
 }
 
