@@ -18,6 +18,8 @@ const space = document.getElementById('space')
 const popUpAjoute = document.getElementById('ajouteNouveau')
 const bgPopUpAjoute = document.getElementById('space-popUp')
 const btnAjoute = document.getElementById('btn-ajoute')
+const titrePopUp = document.getElementById('titre')
+const form = document.getElementById('form')
 // inputs : -------------------------------------------
 const btnSubmit = document.getElementById('btn-submit')
 const nameInput = document.getElementById('name')
@@ -285,7 +287,7 @@ export function gereerFavorite(data) {
                 if (e.currentTarget.dataset.action === 'favorite' || e.target.dataset.id == tes.id) {
                     if (tes.isFavorite === false) {
                         checkFavorite(tes.id, true)
-                        //  strIcon.src = '/assest/star-fill.svg'
+                         strIcon.src = '/assest/star-fill.svg'
 
                     }
                     else {
@@ -299,15 +301,16 @@ export function gereerFavorite(data) {
                 if (e.currentTarget.dataset.action === 'blacklist' || e.target.id === `report-icon${tes.id}`) {
                     if (tes.isBlackliste === false) {
                         checkTrueFalse(tes, true)
-                        afficher(data, channelsSpace)
+                         e.target.parentElement.closest('LI').remove()
+                      
                     }
-                    // const affi = getDataLocaleSorage().filter(e => e.isBlackliste !== true)
-
-
-                    // checkStrIcon(getDataLocaleSorage())
+                
                 }
                 if (e.currentTarget.dataset.action === 'modifier' || e.target.id === `modifier-icon${tes.id}`) {
                     console.log('modifier')
+                    titrePopUp.textContent = "modifier channel"
+                    btnSubmit.textContent = "Modifier"
+
                     popUpAjoute.classList.remove('hidden')
                     bgPopUpAjoute.classList.toggle('hidden')
                     nameInput.value = tes.name
@@ -363,23 +366,27 @@ export function playStream(data) {
 export function popUpAjouteChannel(data) {
 
     const regexNom = /^[a-zA-Z0-9]{2,}$/
-    const regexNum = /^[0-9]+$/
+    const regexNum = /^[0-9]{1,}$/
 
     btnAjoute.addEventListener('click', () => {
-
+        form.reset()
+        titrePopUp.textContent = "Ajoute nouveau channel"
+        btnSubmit.textContent = "Ajouter"
 
         btnSubmit.addEventListener('click', (e) => {
             console.log(nameInput.value)
             console.log('ajoute')
             e.preventDefault()
             ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data)
-            // if (!regexNom.test(nameInput)) {
+            if (!regexNom.test(nameInput)) {
 
-            //     message.textContent = '3awd dkhl'
-            //     nameInput.classList.add('border border-red-600')
-
-
-            // }
+                message.textContent = '3awd dkhl'
+                nameInput.classList.add('border border-red-600')
+            }
+            if(!regexNum.test(numberInput)){
+                message.textContent = '3awd dkhl'
+            }
+            else {message.textContent = ''}
         })
     })
 }
