@@ -1,7 +1,7 @@
 # 📺 Dodrar Stream
 
 ## 1. Présentation
-Dodrar Stream est une application web qui permet de regarder des chaînes TV en direct.
+Dodrar Stream TV est une application web qui permet de consulter et de gérer des chaînes télévisées. Cette deuxième version permet à l'utilisateur de personnaliser son expérience et de sauvegarder ses choix grâce à une API MockAPI.
 
 ## 2. Technologies utilisées
 - HTML
@@ -11,12 +11,15 @@ Dodrar Stream est une application web qui permet de regarder des chaînes TV en 
 - MockAPI
 
 ## 3. Fonctionnalités
-- Affichage des chaînes TV.
-- Recherche par nom ou numéro.
-- Filtrage par catégorie.
-- Lecture des chaînes en direct.
-- Affichage des programmes TV.
-- Design responsive.
+Afficher la liste des chaînes TV.
+Rechercher une chaîne par son nom.
+Afficher l'aperçu de la chaîne sélectionnée.
+Ajouter et retirer des chaînes des Favoris.
+Ajouter des chaînes à la Liste Noire.
+Restaurer les chaînes cachées.
+Supprimer définitivement une chaîne.
+Ajouter une nouvelle chaîne avec un formulaire.
+Sauvegarder les choix de l'utilisateur sur MockAPI.
 
 ## 4. Structure du projet
 ```text
