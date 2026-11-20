@@ -71,27 +71,27 @@
             </ul>
         </div>
         <div id="space-popUp" class="absolute bg-white/30 backdrop-blur-sm h-[90%] w-full left-0 hidden "></div>
-        <div id="ajouteNouveau" class="bg-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center evenl left-80 top-44 hidden ">
-            <h2 class="text-center font-['Roboto']" id="titre"></h2>
-            <form action="" class="flex flex-col items-center font-['Roboto'] gap-4 ">
-                <label for="name" >Nom</label>
-                <input type="text" id="name" class="bg-cyan-200 h-12 w-[70%] text-center">
-                <label for="category">category</label>
+        <div id="ajouteNouveau" class="border  bg-white/30 rounded-2xl  text-amber-50 absolute flex flex-col h-[70%] w-[50%] justify-center evenl left-80 top-44 hidden ">
+            <h2 class="text-center text-[#95271D] text-4xl font-['Roboto']" id="titre"></h2>
+            <form action="" id="form" class="flex flex-col   items-center font-['Roboto'] gap-4 ">
+                <label for="name" class="text-[#95271D] text-2xl">Nom</label>
+                <input type="text" id="name" class="bg-[#95271D] h-12 w-[70%] text-center rounded-2xl ">
+                <label for="category" class="text-[#95271D] text-2xl">category</label>
                 <!-- <input type="text" id="category" class="bg-cyan-200 h-12 w-[70%]"> -->
-                <select name="" id="category" class="bg-cyan-200 h-12 w-[70%] text-center">
-                    <option value="MUSIC">MUSIC</option>
+                <select name="" id="category" class="bg-[#95271D] h-12 w-[70%] text-center rounded-2xl">
+                    <option value="MUSIC" >MUSIC</option>
                     <option value="DOCUMENTARY">DOCUMENTARY</option>
                     <option value="KIDS">KIDS</option>
                     <option value="SPORTS">SPORTS</option>
                     <option value="DOCUMENTARY">ENTERTAINMENT</option>
                     <option value="NEWS">NEWS</option>
                 </select>
-                <label for="numero">numéro</label>
-                <input type="number" id="numero" class="bg-cyan-200 h-12 w-[70%] text-center">
-                <label for="logo">URL Logo</label>
-                <input type="text " id="logo" class="bg-cyan-200 h-12 w-[70%] text-center">
+                <label for="numero" class="text-[#95271D] text-2xl">numéro</label>
+                <input type="number" id="numero" class="bg-[#95271D]  h-12 w-[70%] text-center rounded-2xl">
+                <label for="logo" class="text-[#95271D] text-2xl">URL Logo</label>
+                <input type="text " id="logo" class="bg-[#95271D] h-12 w-[70%] text-center rounded-2xl">
                 <span id="message" class="text-red-600"></span>
-                <button id="btn-submit" class="bg-[#FF1010] h-10 w-[35%] text-center"></button>
+                <button id="btn-submit" class="bg-black rounded-2xl h-10 w-[35%] text-center"></button>
             </form>
         </div>
     </main>

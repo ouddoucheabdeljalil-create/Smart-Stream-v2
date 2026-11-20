@@ -19,6 +19,7 @@ const popUpAjoute = document.getElementById('ajouteNouveau')
 const bgPopUpAjoute = document.getElementById('space-popUp')
 const btnAjoute = document.getElementById('btn-ajoute')
 const titrePopUp = document.getElementById('titre')
+const form = document.getElementById('form')
 // inputs : -------------------------------------------
 const btnSubmit = document.getElementById('btn-submit')
 const nameInput = document.getElementById('name')
@@ -365,9 +366,10 @@ export function playStream(data) {
 export function popUpAjouteChannel(data) {
 
     const regexNom = /^[a-zA-Z0-9]{2,}$/
-    const regexNum = /^[0-9]+$/
+    const regexNum = /^[0-9]{1,}$/
 
     btnAjoute.addEventListener('click', () => {
+        form.reset()
         titrePopUp.textContent = "Ajoute nouveau channel"
         btnSubmit.textContent = "Ajouter"
 
@@ -376,13 +378,15 @@ export function popUpAjouteChannel(data) {
             console.log('ajoute')
             e.preventDefault()
             ajouteChannelApi(nameInput.value, categoryInput.value, LogoInput.value, numberInput.value, data)
-            // if (!regexNom.test(nameInput)) {
+            if (!regexNom.test(nameInput)) {
 
-            //     message.textContent = '3awd dkhl'
-            //     nameInput.classList.add('border border-red-600')
-
-
-            // }
+                message.textContent = '3awd dkhl'
+                nameInput.classList.add('border border-red-600')
+            }
+            if(!regexNum.test(numberInput)){
+                message.textContent = '3awd dkhl'
+            }
+            else {message.textContent = ''}
         })
     })
 }

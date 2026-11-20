@@ -24,6 +24,8 @@
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
@@ -395,6 +397,10 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-\[830000\] {
+    border-style: var(--tw-border-style);
+    border-width: 830000;
+  }
   .border-l {
     border-left-style: var(--tw-border-style);
     border-left-width: 1px;
@@ -402,6 +408,9 @@
   .border-solid {
     --tw-border-style: solid;
     border-style: solid;
+  }
+  .border-\[\#830000\] {
+    border-color: #830000;
   }
   .border-\[\#FF1010\] {
     border-color: #FF1010;
@@ -415,11 +424,38 @@
   .border-l-white {
     border-left-color: var(--color-white);
   }
+  .bg-\[\#\#95271D\] {
+    background-color: ##95271D;
+  }
+  .bg-\[\#000\] {
+    background-color: #000;
+  }
   .bg-\[\#080808\] {
     background-color: #080808;
   }
+  .bg-\[\#95271D\] {
+    background-color: #95271D;
+  }
+  .bg-\[\#830000\] {
+    background-color: #830000;
+  }
+  .bg-\[\#F7D794\] {
+    background-color: #F7D794;
+  }
+  .bg-\[\#FEF3E2\] {
+    background-color: #FEF3E2;
+  }
   .bg-\[\#FF1010\] {
     background-color: #FF1010;
+  }
+  .bg-\[\#e63c3c\] {
+    background-color: #e63c3c;
+  }
+  .bg-\[830000\] {
+    background-color: 830000;
+  }
+  .bg-\[F7D794\] {
+    background-color: F7D794;
   }
   .bg-amber-50 {
     background-color: var(--color-amber-50);
@@ -438,6 +474,12 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-white\/2 {
+    background-color: color-mix(in srgb, #fff 2%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 2%, transparent);
+    }
   }
   .bg-white\/30 {
     background-color: color-mix(in srgb, #fff 30%, transparent);
@@ -522,6 +564,14 @@
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
@@ -540,6 +590,9 @@
   }
   .text-\[\#080808\] {
     color: #080808;
+  }
+  .text-\[\#95271D\] {
+    color: #95271D;
   }
   .text-\[\#FF1010\] {
     color: #FF1010;
