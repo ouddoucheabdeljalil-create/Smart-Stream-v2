@@ -20,5 +20,18 @@
 => Format qui organise les données avec des espaces.
 12. XML :
 => Format qui organise les données avec des balises.
+----------------------------------------------------------------------------------------
+13. Les méthodes HTTP :
+=> sont des méthodes utilisées pour communiquer avec un serveur et effectuer des opérations sur les données.
+14. GET
+=> Permet de récupérer des données depuis un serveur.
+15. POST :
+=> Permet d'ajouter de nouvelles données sur un serveur.
+16. PUT :
+=> Permet de modifier complètement une donnée existante.
+17. PATCH :
+=> Permet de modifier une partie d'une donnée existante.
+18. DELETE :
+=> Supprimer une donnée depuis un serveur.
 
 
