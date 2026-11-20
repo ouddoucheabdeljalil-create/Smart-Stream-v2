@@ -11,15 +11,15 @@ Dodrar Stream TV est une application web qui permet de consulter et de gérer de
 - MockAPI
 
 ## 3. Fonctionnalités
-Afficher la liste des chaînes TV.
-Rechercher une chaîne par son nom.
-Afficher l'aperçu de la chaîne sélectionnée.
-Ajouter et retirer des chaînes des Favoris.
-Ajouter des chaînes à la Liste Noire.
-Restaurer les chaînes cachées.
-Supprimer définitivement une chaîne.
-Ajouter une nouvelle chaîne avec un formulaire.
-Sauvegarder les choix de l'utilisateur sur MockAPI.
+- Afficher la liste des chaînes TV.
+- Rechercher une chaîne par son nom.
+- Afficher l'aperçu de la chaîne sélectionnée.
+- Ajouter et retirer des chaînes des Favoris.
+- Ajouter des chaînes à la Liste Noire.
+- Restaurer les chaînes cachées.
+- Supprimer définitivement une chaîne.
+- Ajouter une nouvelle chaîne avec un formulaire.
+- Sauvegarder les choix de l'utilisateur sur MockAPI.
 
 ## 4. Structure du projet
 ```text
@@ -42,5 +42,5 @@ Dodrar-Stream/
 ```
 
 ## 5.  Liens du projet
- - GitHub page : https://ouddoucheabdeljalil-create.github.io/Smart-Stream/
- - vercel : https://smart-stream-coral.vercel.app/
+ - GitHub page : https://ouddoucheabdeljalil-create.github.io/Smart-Stream-v2/
+ - vercel : https://smartstreamv.vercel.app/
